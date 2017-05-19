@@ -1,0 +1,1501 @@
+N,age,ethnicity,region,sex
+35372,Age 18 to 19,white,North East,male
+85026,Age 20 to 24,white,North East,male
+74452,Age 25 to 29,white,North East,male
+68213,Age 30 to 34,white,North East,male
+71289,Age 35 to 39,white,North East,male
+85233,Age 40 to 44,white,North East,male
+93094,Age 45 to 49,white,North East,male
+86808,Age 50 to 54,white,North East,male
+77719,Age 55 to 59,white,North East,male
+81571,Age 60 to 64,white,North East,male
+61927,Age 65 to 69,white,North East,male
+50885,Age 70 to 74,white,North East,male
+39608,Age 75 to 79,white,North East,male
+26054,Age 80 to 84,white,North East,male
+17543,Age 85 and over,white,North East,male
+83829,Age 18 to 19,white,North West,male
+210457,Age 20 to 24,white,North West,male
+198816,Age 25 to 29,white,North West,male
+180006,Age 30 to 34,white,North West,male
+192893,Age 35 to 39,white,North West,male
+229918,Age 40 to 44,white,North West,male
+240065,Age 45 to 49,white,North West,male
+216364,Age 50 to 54,white,North West,male
+193658,Age 55 to 59,white,North West,male
+212087,Age 60 to 64,white,North West,male
+162443,Age 65 to 69,white,North West,male
+130095,Age 70 to 74,white,North West,male
+98252,Age 75 to 79,white,North West,male
+65776,Age 80 to 84,white,North West,male
+46055,Age 85 and over,white,North West,male
+65203,Age 18 to 19,white,Yorkshire and the Humber,male
+161814,Age 20 to 24,white,Yorkshire and the Humber,male
+143521,Age 25 to 29,white,Yorkshire and the Humber,male
+130973,Age 30 to 34,white,Yorkshire and the Humber,male
+143230,Age 35 to 39,white,Yorkshire and the Humber,male
+169694,Age 40 to 44,white,Yorkshire and the Humber,male
+176569,Age 45 to 49,white,Yorkshire and the Humber,male
+159879,Age 50 to 54,white,Yorkshire and the Humber,male
+143492,Age 55 to 59,white,Yorkshire and the Humber,male
+155876,Age 60 to 64,white,Yorkshire and the Humber,male
+119215,Age 65 to 69,white,Yorkshire and the Humber,male
+95226,Age 70 to 74,white,Yorkshire and the Humber,male
+73167,Age 75 to 79,white,Yorkshire and the Humber,male
+49240,Age 80 to 84,white,Yorkshire and the Humber,male
+35959,Age 85 and over,white,Yorkshire and the Humber,male
+53890,Age 18 to 19,white,East Midlands,male
+129486,Age 20 to 24,white,East Midlands,male
+116531,Age 25 to 29,white,East Midlands,male
+111674,Age 30 to 34,white,East Midlands,male
+125312,Age 35 to 39,white,East Midlands,male
+149189,Age 40 to 44,white,East Midlands,male
+154245,Age 45 to 49,white,East Midlands,male
+136615,Age 50 to 54,white,East Midlands,male
+124748,Age 55 to 59,white,East Midlands,male
+138558,Age 60 to 64,white,East Midlands,male
+109735,Age 65 to 69,white,East Midlands,male
+83969,Age 70 to 74,white,East Midlands,male
+64664,Age 75 to 79,white,East Midlands,male
+44204,Age 80 to 84,white,East Midlands,male
+32807,Age 85 and over,white,East Midlands,male
+60390,Age 18 to 19,white,West Midlands,male
+148012,Age 20 to 24,white,West Midlands,male
+137063,Age 25 to 29,white,West Midlands,male
+127561,Age 30 to 34,white,West Midlands,male
+141376,Age 35 to 39,white,West Midlands,male
+167834,Age 40 to 44,white,West Midlands,male
+174473,Age 45 to 49,white,West Midlands,male
+155007,Age 50 to 54,white,West Midlands,male
+143349,Age 55 to 59,white,West Midlands,male
+156225,Age 60 to 64,white,West Midlands,male
+130005,Age 65 to 69,white,West Midlands,male
+100171,Age 70 to 74,white,West Midlands,male
+76438,Age 75 to 79,white,West Midlands,male
+52759,Age 80 to 84,white,West Midlands,male
+37477,Age 85 and over,white,West Midlands,male
+61878,Age 18 to 19,white,East of England,male
+156304,Age 20 to 24,white,East of England,male
+155917,Age 25 to 29,white,East of England,male
+154986,Age 30 to 34,white,East of England,male
+168244,Age 35 to 39,white,East of England,male
+193567,Age 40 to 44,white,East of England,male
+199493,Age 45 to 49,white,East of England,male
+177530,Age 50 to 54,white,East of England,male
+159133,Age 55 to 59,white,East of England,male
+176053,Age 60 to 64,white,East of England,male
+139804,Age 65 to 69,white,East of England,male
+109703,Age 70 to 74,white,East of England,male
+88767,Age 75 to 79,white,East of England,male
+62464,Age 80 to 84,white,East of England,male
+46974,Age 85 and over,white,East of England,male
+47390,Age 18 to 19,white,London,male
+164935,Age 20 to 24,white,London,male
+248624,Age 25 to 29,white,London,male
+247327,Age 30 to 34,white,London,male
+205936,Age 35 to 39,white,London,male
+186228,Age 40 to 44,white,London,male
+173027,Age 45 to 49,white,London,male
+149366,Age 50 to 54,white,London,male
+126291,Age 55 to 59,white,London,male
+128665,Age 60 to 64,white,London,male
+93594,Age 65 to 69,white,London,male
+71915,Age 70 to 74,white,London,male
+59309,Age 75 to 79,white,London,male
+43968,Age 80 to 84,white,London,male
+35139,Age 85 and over,white,London,male
+97178,Age 18 to 19,white,South East,male
+235513,Age 20 to 24,white,South East,male
+226713,Age 25 to 29,white,South East,male
+226334,Age 30 to 34,white,South East,male
+249172,Age 35 to 39,white,South East,male
+287469,Age 40 to 44,white,South East,male
+300564,Age 45 to 49,white,South East,male
+265224,Age 50 to 54,white,South East,male
+232171,Age 55 to 59,white,South East,male
+253375,Age 60 to 64,white,South East,male
+199231,Age 65 to 69,white,South East,male
+155118,Age 70 to 74,white,South East,male
+124925,Age 75 to 79,white,South East,male
+89374,Age 80 to 84,white,South East,male
+69765,Age 85 and over,white,South East,male
+64282,Age 18 to 19,white,South West,male
+157881,Age 20 to 24,white,South West,male
+143848,Age 25 to 29,white,South West,male
+137161,Age 30 to 34,white,South West,male
+149153,Age 35 to 39,white,South West,male
+176398,Age 40 to 44,white,South West,male
+185061,Age 45 to 49,white,South West,male
+167445,Age 50 to 54,white,South West,male
+154515,Age 55 to 59,white,South West,male
+173934,Age 60 to 64,white,South West,male
+143218,Age 65 to 69,white,South West,male
+111147,Age 70 to 74,white,South West,male
+88269,Age 75 to 79,white,South West,male
+63577,Age 80 to 84,white,South West,male
+50062,Age 85 and over,white,South West,male
+39971,Age 18 to 19,white,Wales,male
+99981,Age 20 to 24,white,Wales,male
+86453,Age 25 to 29,white,Wales,male
+80645,Age 30 to 34,white,Wales,male
+84198,Age 35 to 39,white,Wales,male
+99535,Age 40 to 44,white,Wales,male
+104818,Age 45 to 49,white,Wales,male
+96044,Age 50 to 54,white,Wales,male
+89844,Age 55 to 59,white,Wales,male
+99548,Age 60 to 64,white,Wales,male
+80102,Age 65 to 69,white,Wales,male
+63420,Age 70 to 74,white,Wales,male
+48334,Age 75 to 79,white,Wales,male
+32574,Age 80 to 84,white,Wales,male
+23577,Age 85 and over,white,Wales,male
+529,Age 18 to 19,mixed,North East,male
+1137,Age 20 to 24,mixed,North East,male
+869,Age 25 to 29,mixed,North East,male
+764,Age 30 to 34,mixed,North East,male
+598,Age 35 to 39,mixed,North East,male
+563,Age 40 to 44,mixed,North East,male
+555,Age 45 to 49,mixed,North East,male
+403,Age 50 to 54,mixed,North East,male
+234,Age 55 to 59,mixed,North East,male
+188,Age 60 to 64,mixed,North East,male
+133,Age 65 to 69,mixed,North East,male
+115,Age 70 to 74,mixed,North East,male
+79,Age 75 to 79,mixed,North East,male
+57,Age 80 to 84,mixed,North East,male
+42,Age 85 and over,mixed,North East,male
+2369,Age 18 to 19,mixed,North West,male
+5557,Age 20 to 24,mixed,North West,male
+4382,Age 25 to 29,mixed,North West,male
+3282,Age 30 to 34,mixed,North West,male
+2750,Age 35 to 39,mixed,North West,male
+2777,Age 40 to 44,mixed,North West,male
+2475,Age 45 to 49,mixed,North West,male
+1628,Age 50 to 54,mixed,North West,male
+1025,Age 55 to 59,mixed,North West,male
+784,Age 60 to 64,mixed,North West,male
+558,Age 65 to 69,mixed,North West,male
+362,Age 70 to 74,mixed,North West,male
+277,Age 75 to 79,mixed,North West,male
+208,Age 80 to 84,mixed,North West,male
+158,Age 85 and over,mixed,North West,male
+1949,Age 18 to 19,mixed,Yorkshire and the Humber,male
+4353,Age 20 to 24,mixed,Yorkshire and the Humber,male
+3319,Age 25 to 29,mixed,Yorkshire and the Humber,male
+2611,Age 30 to 34,mixed,Yorkshire and the Humber,male
+2098,Age 35 to 39,mixed,Yorkshire and the Humber,male
+2204,Age 40 to 44,mixed,Yorkshire and the Humber,male
+1800,Age 45 to 49,mixed,Yorkshire and the Humber,male
+1033,Age 50 to 54,mixed,Yorkshire and the Humber,male
+629,Age 55 to 59,mixed,Yorkshire and the Humber,male
+433,Age 60 to 64,mixed,Yorkshire and the Humber,male
+330,Age 65 to 69,mixed,Yorkshire and the Humber,male
+247,Age 70 to 74,mixed,Yorkshire and the Humber,male
+213,Age 75 to 79,mixed,Yorkshire and the Humber,male
+133,Age 80 to 84,mixed,Yorkshire and the Humber,male
+88,Age 85 and over,mixed,Yorkshire and the Humber,male
+2046,Age 18 to 19,mixed,East Midlands,male
+4674,Age 20 to 24,mixed,East Midlands,male
+3515,Age 25 to 29,mixed,East Midlands,male
+3007,Age 30 to 34,mixed,East Midlands,male
+2047,Age 35 to 39,mixed,East Midlands,male
+1949,Age 40 to 44,mixed,East Midlands,male
+1625,Age 45 to 49,mixed,East Midlands,male
+1098,Age 50 to 54,mixed,East Midlands,male
+637,Age 55 to 59,mixed,East Midlands,male
+436,Age 60 to 64,mixed,East Midlands,male
+351,Age 65 to 69,mixed,East Midlands,male
+223,Age 70 to 74,mixed,East Midlands,male
+161,Age 75 to 79,mixed,East Midlands,male
+123,Age 80 to 84,mixed,East Midlands,male
+82,Age 85 and over,mixed,East Midlands,male
+3248,Age 18 to 19,mixed,West Midlands,male
+6576,Age 20 to 24,mixed,West Midlands,male
+5001,Age 25 to 29,mixed,West Midlands,male
+3473,Age 30 to 34,mixed,West Midlands,male
+2775,Age 35 to 39,mixed,West Midlands,male
+2661,Age 40 to 44,mixed,West Midlands,male
+2417,Age 45 to 49,mixed,West Midlands,male
+1386,Age 50 to 54,mixed,West Midlands,male
+757,Age 55 to 59,mixed,West Midlands,male
+523,Age 60 to 64,mixed,West Midlands,male
+415,Age 65 to 69,mixed,West Midlands,male
+341,Age 70 to 74,mixed,West Midlands,male
+284,Age 75 to 79,mixed,West Midlands,male
+203,Age 80 to 84,mixed,West Midlands,male
+126,Age 85 and over,mixed,West Midlands,male
+2251,Age 18 to 19,mixed,East of England,male
+4898,Age 20 to 24,mixed,East of England,male
+4114,Age 25 to 29,mixed,East of England,male
+3446,Age 30 to 34,mixed,East of England,male
+2754,Age 35 to 39,mixed,East of England,male
+2510,Age 40 to 44,mixed,East of England,male
+2120,Age 45 to 49,mixed,East of England,male
+1437,Age 50 to 54,mixed,East of England,male
+788,Age 55 to 59,mixed,East of England,male
+575,Age 60 to 64,mixed,East of England,male
+496,Age 65 to 69,mixed,East of England,male
+355,Age 70 to 74,mixed,East of England,male
+301,Age 75 to 79,mixed,East of England,male
+194,Age 80 to 84,mixed,East of England,male
+163,Age 85 and over,mixed,East of England,male
+6885,Age 18 to 19,mixed,London,male
+17862,Age 20 to 24,mixed,London,male
+18382,Age 25 to 29,mixed,London,male
+14984,Age 30 to 34,mixed,London,male
+10923,Age 35 to 39,mixed,London,male
+9753,Age 40 to 44,mixed,London,male
+7803,Age 45 to 49,mixed,London,male
+4956,Age 50 to 54,mixed,London,male
+3015,Age 55 to 59,mixed,London,male
+2026,Age 60 to 64,mixed,London,male
+1681,Age 65 to 69,mixed,London,male
+1535,Age 70 to 74,mixed,London,male
+1119,Age 75 to 79,mixed,London,male
+690,Age 80 to 84,mixed,London,male
+420,Age 85 and over,mixed,London,male
+3443,Age 18 to 19,mixed,South East,male
+7259,Age 20 to 24,mixed,South East,male
+5842,Age 25 to 29,mixed,South East,male
+4809,Age 30 to 34,mixed,South East,male
+4018,Age 35 to 39,mixed,South East,male
+3956,Age 40 to 44,mixed,South East,male
+3388,Age 45 to 49,mixed,South East,male
+2168,Age 50 to 54,mixed,South East,male
+1419,Age 55 to 59,mixed,South East,male
+1085,Age 60 to 64,mixed,South East,male
+879,Age 65 to 69,mixed,South East,male
+633,Age 70 to 74,mixed,South East,male
+449,Age 75 to 79,mixed,South East,male
+276,Age 80 to 84,mixed,South East,male
+192,Age 85 and over,mixed,South East,male
+1592,Age 18 to 19,mixed,South West,male
+3661,Age 20 to 24,mixed,South West,male
+2835,Age 25 to 29,mixed,South West,male
+2240,Age 30 to 34,mixed,South West,male
+1901,Age 35 to 39,mixed,South West,male
+1690,Age 40 to 44,mixed,South West,male
+1505,Age 45 to 49,mixed,South West,male
+986,Age 50 to 54,mixed,South West,male
+644,Age 55 to 59,mixed,South West,male
+504,Age 60 to 64,mixed,South West,male
+440,Age 65 to 69,mixed,South West,male
+287,Age 70 to 74,mixed,South West,male
+223,Age 75 to 79,mixed,South West,male
+143,Age 80 to 84,mixed,South West,male
+112,Age 85 and over,mixed,South West,male
+749,Age 18 to 19,mixed,Wales,male
+1640,Age 20 to 24,mixed,Wales,male
+1179,Age 25 to 29,mixed,Wales,male
+1005,Age 30 to 34,mixed,Wales,male
+791,Age 35 to 39,mixed,Wales,male
+850,Age 40 to 44,mixed,Wales,male
+756,Age 45 to 49,mixed,Wales,male
+549,Age 50 to 54,mixed,Wales,male
+435,Age 55 to 59,mixed,Wales,male
+291,Age 60 to 64,mixed,Wales,male
+252,Age 65 to 69,mixed,Wales,male
+202,Age 70 to 74,mixed,Wales,male
+155,Age 75 to 79,mixed,Wales,male
+81,Age 80 to 84,mixed,Wales,male
+68,Age 85 and over,mixed,Wales,male
+1237,Age 18 to 19,asian,North East,male
+5907,Age 20 to 24,asian,North East,male
+4429,Age 25 to 29,asian,North East,male
+3904,Age 30 to 34,asian,North East,male
+3551,Age 35 to 39,asian,North East,male
+2671,Age 40 to 44,asian,North East,male
+1832,Age 45 to 49,asian,North East,male
+1497,Age 50 to 54,asian,North East,male
+1080,Age 55 to 59,asian,North East,male
+699,Age 60 to 64,asian,North East,male
+482,Age 65 to 69,asian,North East,male
+475,Age 70 to 74,asian,North East,male
+353,Age 75 to 79,asian,North East,male
+165,Age 80 to 84,asian,North East,male
+56,Age 85 and over,asian,North East,male
+7620,Age 18 to 19,asian,North West,male
+22616,Age 20 to 24,asian,North West,male
+21967,Age 25 to 29,asian,North West,male
+22301,Age 30 to 34,asian,North West,male
+19379,Age 35 to 39,asian,North West,male
+15053,Age 40 to 44,asian,North West,male
+10043,Age 45 to 49,asian,North West,male
+9178,Age 50 to 54,asian,North West,male
+7611,Age 55 to 59,asian,North West,male
+4370,Age 60 to 64,asian,North West,male
+2997,Age 65 to 69,asian,North West,male
+3228,Age 70 to 74,asian,North West,male
+2134,Age 75 to 79,asian,North West,male
+978,Age 80 to 84,asian,North West,male
+469,Age 85 and over,asian,North West,male
+6998,Age 18 to 19,asian,Yorkshire and the Humber,male
+20211,Age 20 to 24,asian,Yorkshire and the Humber,male
+19801,Age 25 to 29,asian,Yorkshire and the Humber,male
+20048,Age 30 to 34,asian,Yorkshire and the Humber,male
+16701,Age 35 to 39,asian,Yorkshire and the Humber,male
+12578,Age 40 to 44,asian,Yorkshire and the Humber,male
+7424,Age 45 to 49,asian,Yorkshire and the Humber,male
+7071,Age 50 to 54,asian,Yorkshire and the Humber,male
+6544,Age 55 to 59,asian,Yorkshire and the Humber,male
+3359,Age 60 to 64,asian,Yorkshire and the Humber,male
+2223,Age 65 to 69,asian,Yorkshire and the Humber,male
+2543,Age 70 to 74,asian,Yorkshire and the Humber,male
+1825,Age 75 to 79,asian,Yorkshire and the Humber,male
+978,Age 80 to 84,asian,Yorkshire and the Humber,male
+442,Age 85 and over,asian,Yorkshire and the Humber,male
+5356,Age 18 to 19,asian,East Midlands,male
+15978,Age 20 to 24,asian,East Midlands,male
+13709,Age 25 to 29,asian,East Midlands,male
+13469,Age 30 to 34,asian,East Midlands,male
+11732,Age 35 to 39,asian,East Midlands,male
+10062,Age 40 to 44,asian,East Midlands,male
+8466,Age 45 to 49,asian,East Midlands,male
+8234,Age 50 to 54,asian,East Midlands,male
+7271,Age 55 to 59,asian,East Midlands,male
+4701,Age 60 to 64,asian,East Midlands,male
+3036,Age 65 to 69,asian,East Midlands,male
+2675,Age 70 to 74,asian,East Midlands,male
+1760,Age 75 to 79,asian,East Midlands,male
+894,Age 80 to 84,asian,East Midlands,male
+564,Age 85 and over,asian,East Midlands,male
+10208,Age 18 to 19,asian,West Midlands,male
+29023,Age 20 to 24,asian,West Midlands,male
+30151,Age 25 to 29,asian,West Midlands,male
+29705,Age 30 to 34,asian,West Midlands,male
+26452,Age 35 to 39,asian,West Midlands,male
+21350,Age 40 to 44,asian,West Midlands,male
+14150,Age 45 to 49,asian,West Midlands,male
+12343,Age 50 to 54,asian,West Midlands,male
+11446,Age 55 to 59,asian,West Midlands,male
+6866,Age 60 to 64,asian,West Midlands,male
+4608,Age 65 to 69,asian,West Midlands,male
+4716,Age 70 to 74,asian,West Midlands,male
+3468,Age 75 to 79,asian,West Midlands,male
+2011,Age 80 to 84,asian,West Midlands,male
+1058,Age 85 and over,asian,West Midlands,male
+4078,Age 18 to 19,asian,East of England,male
+12899,Age 20 to 24,asian,East of England,male
+14043,Age 25 to 29,asian,East of England,male
+15001,Age 30 to 34,asian,East of England,male
+13650,Age 35 to 39,asian,East of England,male
+10241,Age 40 to 44,asian,East of England,male
+7313,Age 45 to 49,asian,East of England,male
+6199,Age 50 to 54,asian,East of England,male
+5108,Age 55 to 59,asian,East of England,male
+3538,Age 60 to 64,asian,East of England,male
+2373,Age 65 to 69,asian,East of England,male
+2309,Age 70 to 74,asian,East of England,male
+1455,Age 75 to 79,asian,East of England,male
+699,Age 80 to 84,asian,East of England,male
+348,Age 85 and over,asian,East of England,male
+21748,Age 18 to 19,asian,London,male
+77042,Age 20 to 24,asian,London,male
+91126,Age 25 to 29,asian,London,male
+86264,Age 30 to 34,asian,London,male
+68640,Age 35 to 39,asian,London,male
+52662,Age 40 to 44,asian,London,male
+41223,Age 45 to 49,asian,London,male
+37860,Age 50 to 54,asian,London,male
+31132,Age 55 to 59,asian,London,male
+21583,Age 60 to 64,asian,London,male
+15331,Age 65 to 69,asian,London,male
+15533,Age 70 to 74,asian,London,male
+10745,Age 75 to 79,asian,London,male
+5211,Age 80 to 84,asian,London,male
+2626,Age 85 and over,asian,London,male
+6999,Age 18 to 19,asian,South East,male
+20346,Age 20 to 24,asian,South East,male
+22705,Age 25 to 29,asian,South East,male
+24884,Age 30 to 34,asian,South East,male
+22133,Age 35 to 39,asian,South East,male
+17549,Age 40 to 44,asian,South East,male
+12720,Age 45 to 49,asian,South East,male
+10372,Age 50 to 54,asian,South East,male
+8349,Age 55 to 59,asian,South East,male
+5576,Age 60 to 64,asian,South East,male
+3859,Age 65 to 69,asian,South East,male
+3604,Age 70 to 74,asian,South East,male
+2296,Age 75 to 79,asian,South East,male
+1039,Age 80 to 84,asian,South East,male
+511,Age 85 and over,asian,South East,male
+2048,Age 18 to 19,asian,South West,male
+6039,Age 20 to 24,asian,South West,male
+5267,Age 25 to 29,asian,South West,male
+5806,Age 30 to 34,asian,South West,male
+5245,Age 35 to 39,asian,South West,male
+4013,Age 40 to 44,asian,South West,male
+2840,Age 45 to 49,asian,South West,male
+2333,Age 50 to 54,asian,South West,male
+1712,Age 55 to 59,asian,South West,male
+1140,Age 60 to 64,asian,South West,male
+714,Age 65 to 69,asian,South West,male
+635,Age 70 to 74,asian,South West,male
+460,Age 75 to 79,asian,South West,male
+197,Age 80 to 84,asian,South West,male
+103,Age 85 and over,asian,South West,male
+1187,Age 18 to 19,asian,Wales,male
+5184,Age 20 to 24,asian,Wales,male
+3823,Age 25 to 29,asian,Wales,male
+3532,Age 30 to 34,asian,Wales,male
+3473,Age 35 to 39,asian,Wales,male
+2678,Age 40 to 44,asian,Wales,male
+1759,Age 45 to 49,asian,Wales,male
+1484,Age 50 to 54,asian,Wales,male
+1058,Age 55 to 59,asian,Wales,male
+711,Age 60 to 64,asian,Wales,male
+510,Age 65 to 69,asian,Wales,male
+665,Age 70 to 74,asian,Wales,male
+324,Age 75 to 79,asian,Wales,male
+130,Age 80 to 84,asian,Wales,male
+59,Age 85 and over,asian,Wales,male
+219,Age 18 to 19,black,North East,male
+637,Age 20 to 24,black,North East,male
+943,Age 25 to 29,black,North East,male
+1074,Age 30 to 34,black,North East,male
+865,Age 35 to 39,black,North East,male
+634,Age 40 to 44,black,North East,male
+357,Age 45 to 49,black,North East,male
+235,Age 50 to 54,black,North East,male
+135,Age 55 to 59,black,North East,male
+73,Age 60 to 64,black,North East,male
+36,Age 65 to 69,black,North East,male
+51,Age 70 to 74,black,North East,male
+33,Age 75 to 79,black,North East,male
+18,Age 80 to 84,black,North East,male
+8,Age 85 and over,black,North East,male
+1530,Age 18 to 19,black,North West,male
+3821,Age 20 to 24,black,North West,male
+4415,Age 25 to 29,black,North West,male
+5096,Age 30 to 34,black,North West,male
+4587,Age 35 to 39,black,North West,male
+4792,Age 40 to 44,black,North West,male
+3640,Age 45 to 49,black,North West,male
+2547,Age 50 to 54,black,North West,male
+1267,Age 55 to 59,black,North West,male
+802,Age 60 to 64,black,North West,male
+623,Age 65 to 69,black,North West,male
+825,Age 70 to 74,black,North West,male
+661,Age 75 to 79,black,North West,male
+403,Age 80 to 84,black,North West,male
+247,Age 85 and over,black,North West,male
+1387,Age 18 to 19,black,Yorkshire and the Humber,male
+3621,Age 20 to 24,black,Yorkshire and the Humber,male
+3506,Age 25 to 29,black,Yorkshire and the Humber,male
+4312,Age 30 to 34,black,Yorkshire and the Humber,male
+4155,Age 35 to 39,black,Yorkshire and the Humber,male
+4016,Age 40 to 44,black,Yorkshire and the Humber,male
+3613,Age 45 to 49,black,Yorkshire and the Humber,male
+2120,Age 50 to 54,black,Yorkshire and the Humber,male
+1066,Age 55 to 59,black,Yorkshire and the Humber,male
+543,Age 60 to 64,black,Yorkshire and the Humber,male
+599,Age 65 to 69,black,Yorkshire and the Humber,male
+742,Age 70 to 74,black,Yorkshire and the Humber,male
+637,Age 75 to 79,black,Yorkshire and the Humber,male
+348,Age 80 to 84,black,Yorkshire and the Humber,male
+156,Age 85 and over,black,Yorkshire and the Humber,male
+1481,Age 18 to 19,black,East Midlands,male
+3209,Age 20 to 24,black,East Midlands,male
+3004,Age 25 to 29,black,East Midlands,male
+3601,Age 30 to 34,black,East Midlands,male
+3632,Age 35 to 39,black,East Midlands,male
+3728,Age 40 to 44,black,East Midlands,male
+3789,Age 45 to 49,black,East Midlands,male
+2365,Age 50 to 54,black,East Midlands,male
+1242,Age 55 to 59,black,East Midlands,male
+612,Age 60 to 64,black,East Midlands,male
+569,Age 65 to 69,black,East Midlands,male
+803,Age 70 to 74,black,East Midlands,male
+642,Age 75 to 79,black,East Midlands,male
+349,Age 80 to 84,black,East Midlands,male
+192,Age 85 and over,black,East Midlands,male
+2918,Age 18 to 19,black,West Midlands,male
+6534,Age 20 to 24,black,West Midlands,male
+6549,Age 25 to 29,black,West Midlands,male
+6848,Age 30 to 34,black,West Midlands,male
+6825,Age 35 to 39,black,West Midlands,male
+7990,Age 40 to 44,black,West Midlands,male
+8291,Age 45 to 49,black,West Midlands,male
+5092,Age 50 to 54,black,West Midlands,male
+2700,Age 55 to 59,black,West Midlands,male
+1310,Age 60 to 64,black,West Midlands,male
+1387,Age 65 to 69,black,West Midlands,male
+2094,Age 70 to 74,black,West Midlands,male
+1849,Age 75 to 79,black,West Midlands,male
+1099,Age 80 to 84,black,West Midlands,male
+585,Age 85 and over,black,West Midlands,male
+1819,Age 18 to 19,black,East of England,male
+4292,Age 20 to 24,black,East of England,male
+4405,Age 25 to 29,black,East of England,male
+5213,Age 30 to 34,black,East of England,male
+5743,Age 35 to 39,black,East of England,male
+6111,Age 40 to 44,black,East of England,male
+5734,Age 45 to 49,black,East of England,male
+3318,Age 50 to 54,black,East of England,male
+1745,Age 55 to 59,black,East of England,male
+886,Age 60 to 64,black,East of England,male
+757,Age 65 to 69,black,East of England,male
+795,Age 70 to 74,black,East of England,male
+632,Age 75 to 79,black,East of England,male
+271,Age 80 to 84,black,East of England,male
+136,Age 85 and over,black,East of England,male
+15487,Age 18 to 19,black,London,male
+37747,Age 20 to 24,black,London,male
+37831,Age 25 to 29,black,London,male
+37537,Age 30 to 34,black,London,male
+36326,Age 35 to 39,black,London,male
+43272,Age 40 to 44,black,London,male
+41388,Age 45 to 49,black,London,male
+28571,Age 50 to 54,black,London,male
+15666,Age 55 to 59,black,London,male
+9135,Age 60 to 64,black,London,male
+7887,Age 65 to 69,black,London,male
+9893,Age 70 to 74,black,London,male
+7100,Age 75 to 79,black,London,male
+3648,Age 80 to 84,black,London,male
+1782,Age 85 and over,black,London,male
+2237,Age 18 to 19,black,South East,male
+5030,Age 20 to 24,black,South East,male
+5349,Age 25 to 29,black,South East,male
+6880,Age 30 to 34,black,South East,male
+6561,Age 35 to 39,black,South East,male
+7069,Age 40 to 44,black,South East,male
+5944,Age 45 to 49,black,South East,male
+3599,Age 50 to 54,black,South East,male
+1924,Age 55 to 59,black,South East,male
+1022,Age 60 to 64,black,South East,male
+859,Age 65 to 69,black,South East,male
+863,Age 70 to 74,black,South East,male
+544,Age 75 to 79,black,South East,male
+270,Age 80 to 84,black,South East,male
+148,Age 85 and over,black,South East,male
+779,Age 18 to 19,black,South West,male
+1910,Age 20 to 24,black,South West,male
+2112,Age 25 to 29,black,South West,male
+2622,Age 30 to 34,black,South West,male
+2303,Age 35 to 39,black,South West,male
+2310,Age 40 to 44,black,South West,male
+2246,Age 45 to 49,black,South West,male
+1346,Age 50 to 54,black,South West,male
+681,Age 55 to 59,black,South West,male
+380,Age 60 to 64,black,South West,male
+364,Age 65 to 69,black,South West,male
+430,Age 70 to 74,black,South West,male
+355,Age 75 to 79,black,South West,male
+196,Age 80 to 84,black,South West,male
+106,Age 85 and over,black,South West,male
+327,Age 18 to 19,black,Wales,male
+898,Age 20 to 24,black,Wales,male
+1163,Age 25 to 29,black,Wales,male
+1230,Age 30 to 34,black,Wales,male
+897,Age 35 to 39,black,Wales,male
+859,Age 40 to 44,black,Wales,male
+763,Age 45 to 49,black,Wales,male
+445,Age 50 to 54,black,Wales,male
+239,Age 55 to 59,black,Wales,male
+140,Age 60 to 64,black,Wales,male
+128,Age 65 to 69,black,Wales,male
+151,Age 70 to 74,black,Wales,male
+127,Age 75 to 79,black,Wales,male
+63,Age 80 to 84,black,Wales,male
+77,Age 85 and over,black,Wales,male
+251,Age 18 to 19,other,North East,male
+716,Age 20 to 24,other,North East,male
+761,Age 25 to 29,other,North East,male
+957,Age 30 to 34,other,North East,male
+807,Age 35 to 39,other,North East,male
+490,Age 40 to 44,other,North East,male
+353,Age 45 to 49,other,North East,male
+339,Age 50 to 54,other,North East,male
+217,Age 55 to 59,other,North East,male
+113,Age 60 to 64,other,North East,male
+69,Age 65 to 69,other,North East,male
+45,Age 70 to 74,other,North East,male
+28,Age 75 to 79,other,North East,male
+17,Age 80 to 84,other,North East,male
+17,Age 85 and over,other,North East,male
+770,Age 18 to 19,other,North West,male
+2629,Age 20 to 24,other,North West,male
+3563,Age 25 to 29,other,North West,male
+3770,Age 30 to 34,other,North West,male
+2760,Age 35 to 39,other,North West,male
+1810,Age 40 to 44,other,North West,male
+1310,Age 45 to 49,other,North West,male
+1160,Age 50 to 54,other,North West,male
+820,Age 55 to 59,other,North West,male
+478,Age 60 to 64,other,North West,male
+279,Age 65 to 69,other,North West,male
+194,Age 70 to 74,other,North West,male
+104,Age 75 to 79,other,North West,male
+111,Age 80 to 84,other,North West,male
+45,Age 85 and over,other,North West,male
+716,Age 18 to 19,other,Yorkshire and the Humber,male
+2460,Age 20 to 24,other,Yorkshire and the Humber,male
+3086,Age 25 to 29,other,Yorkshire and the Humber,male
+3627,Age 30 to 34,other,Yorkshire and the Humber,male
+2721,Age 35 to 39,other,Yorkshire and the Humber,male
+1814,Age 40 to 44,other,Yorkshire and the Humber,male
+954,Age 45 to 49,other,Yorkshire and the Humber,male
+846,Age 50 to 54,other,Yorkshire and the Humber,male
+629,Age 55 to 59,other,Yorkshire and the Humber,male
+360,Age 60 to 64,other,Yorkshire and the Humber,male
+198,Age 65 to 69,other,Yorkshire and the Humber,male
+179,Age 70 to 74,other,Yorkshire and the Humber,male
+139,Age 75 to 79,other,Yorkshire and the Humber,male
+132,Age 80 to 84,other,Yorkshire and the Humber,male
+67,Age 85 and over,other,Yorkshire and the Humber,male
+403,Age 18 to 19,other,East Midlands,male
+1575,Age 20 to 24,other,East Midlands,male
+2105,Age 25 to 29,other,East Midlands,male
+2155,Age 30 to 34,other,East Midlands,male
+1710,Age 35 to 39,other,East Midlands,male
+1053,Age 40 to 44,other,East Midlands,male
+756,Age 45 to 49,other,East Midlands,male
+584,Age 50 to 54,other,East Midlands,male
+536,Age 55 to 59,other,East Midlands,male
+309,Age 60 to 64,other,East Midlands,male
+191,Age 65 to 69,other,East Midlands,male
+112,Age 70 to 74,other,East Midlands,male
+68,Age 75 to 79,other,East Midlands,male
+47,Age 80 to 84,other,East Midlands,male
+50,Age 85 and over,other,East Midlands,male
+906,Age 18 to 19,other,West Midlands,male
+2693,Age 20 to 24,other,West Midlands,male
+3273,Age 25 to 29,other,West Midlands,male
+3369,Age 30 to 34,other,West Midlands,male
+2758,Age 35 to 39,other,West Midlands,male
+1735,Age 40 to 44,other,West Midlands,male
+1393,Age 45 to 49,other,West Midlands,male
+1023,Age 50 to 54,other,West Midlands,male
+964,Age 55 to 59,other,West Midlands,male
+585,Age 60 to 64,other,West Midlands,male
+435,Age 65 to 69,other,West Midlands,male
+319,Age 70 to 74,other,West Midlands,male
+277,Age 75 to 79,other,West Midlands,male
+202,Age 80 to 84,other,West Midlands,male
+119,Age 85 and over,other,West Midlands,male
+395,Age 18 to 19,other,East of England,male
+1655,Age 20 to 24,other,East of England,male
+2413,Age 25 to 29,other,East of England,male
+2102,Age 30 to 34,other,East of England,male
+1660,Age 35 to 39,other,East of England,male
+1278,Age 40 to 44,other,East of England,male
+1069,Age 45 to 49,other,East of England,male
+829,Age 50 to 54,other,East of England,male
+643,Age 55 to 59,other,East of England,male
+467,Age 60 to 64,other,East of England,male
+261,Age 65 to 69,other,East of England,male
+171,Age 70 to 74,other,East of England,male
+84,Age 75 to 79,other,East of England,male
+71,Age 80 to 84,other,East of England,male
+36,Age 85 and over,other,East of England,male
+4160,Age 18 to 19,other,London,male
+12817,Age 20 to 24,other,London,male
+16225,Age 25 to 29,other,London,male
+17113,Age 30 to 34,other,London,male
+14439,Age 35 to 39,other,London,male
+12771,Age 40 to 44,other,London,male
+10306,Age 45 to 49,other,London,male
+7331,Age 50 to 54,other,London,male
+5439,Age 55 to 59,other,London,male
+4183,Age 60 to 64,other,London,male
+2621,Age 65 to 69,other,London,male
+1853,Age 70 to 74,other,London,male
+1260,Age 75 to 79,other,London,male
+717,Age 80 to 84,other,London,male
+428,Age 85 and over,other,London,male
+968,Age 18 to 19,other,South East,male
+2693,Age 20 to 24,other,South East,male
+2925,Age 25 to 29,other,South East,male
+3117,Age 30 to 34,other,South East,male
+2811,Age 35 to 39,other,South East,male
+2178,Age 40 to 44,other,South East,male
+1847,Age 45 to 49,other,South East,male
+1515,Age 50 to 54,other,South East,male
+1223,Age 55 to 59,other,South East,male
+866,Age 60 to 64,other,South East,male
+587,Age 65 to 69,other,South East,male
+428,Age 70 to 74,other,South East,male
+231,Age 75 to 79,other,South East,male
+110,Age 80 to 84,other,South East,male
+81,Age 85 and over,other,South East,male
+303,Age 18 to 19,other,South West,male
+899,Age 20 to 24,other,South West,male
+1129,Age 25 to 29,other,South West,male
+1277,Age 30 to 34,other,South West,male
+967,Age 35 to 39,other,South West,male
+618,Age 40 to 44,other,South West,male
+478,Age 45 to 49,other,South West,male
+489,Age 50 to 54,other,South West,male
+371,Age 55 to 59,other,South West,male
+286,Age 60 to 64,other,South West,male
+165,Age 65 to 69,other,South West,male
+111,Age 70 to 74,other,South West,male
+58,Age 75 to 79,other,South West,male
+26,Age 80 to 84,other,South West,male
+24,Age 85 and over,other,South West,male
+297,Age 18 to 19,other,Wales,male
+1062,Age 20 to 24,other,Wales,male
+1144,Age 25 to 29,other,Wales,male
+1141,Age 30 to 34,other,Wales,male
+979,Age 35 to 39,other,Wales,male
+569,Age 40 to 44,other,Wales,male
+432,Age 45 to 49,other,Wales,male
+439,Age 50 to 54,other,Wales,male
+278,Age 55 to 59,other,Wales,male
+177,Age 60 to 64,other,Wales,male
+124,Age 65 to 69,other,Wales,male
+66,Age 70 to 74,other,Wales,male
+54,Age 75 to 79,other,Wales,male
+40,Age 80 to 84,other,Wales,male
+39,Age 85 and over,other,Wales,male
+34923,Age 18 to 19,white,North East,female
+83392,Age 20 to 24,white,North East,female
+76921,Age 25 to 29,white,North East,female
+70547,Age 30 to 34,white,North East,female
+75063,Age 35 to 39,white,North East,female
+89839,Age 40 to 44,white,North East,female
+97090,Age 45 to 49,white,North East,female
+90038,Age 50 to 54,white,North East,female
+80011,Age 55 to 59,white,North East,female
+84791,Age 60 to 64,white,North East,female
+65215,Age 65 to 69,white,North East,female
+58621,Age 70 to 74,white,North East,female
+49318,Age 75 to 79,white,North East,female
+38402,Age 80 to 84,white,North East,female
+37564,Age 85 and over,white,North East,female
+83669,Age 18 to 19,white,North West,female
+211592,Age 20 to 24,white,North West,female
+200202,Age 25 to 29,white,North West,female
+182583,Age 30 to 34,white,North West,female
+200620,Age 35 to 39,white,North West,female
+238143,Age 40 to 44,white,North West,female
+247791,Age 45 to 49,white,North West,female
+220544,Age 50 to 54,white,North West,female
+195436,Age 55 to 59,white,North West,female
+214398,Age 60 to 64,white,North West,female
+170834,Age 65 to 69,white,North West,female
+146666,Age 70 to 74,white,North West,female
+122921,Age 75 to 79,white,North West,female
+98106,Age 80 to 84,white,North West,female
+100813,Age 85 and over,white,North West,female
+65145,Age 18 to 19,white,Yorkshire and the Humber,female
+160621,Age 20 to 24,white,Yorkshire and the Humber,female
+144830,Age 25 to 29,white,Yorkshire and the Humber,female
+132816,Age 30 to 34,white,Yorkshire and the Humber,female
+146945,Age 35 to 39,white,Yorkshire and the Humber,female
+174228,Age 40 to 44,white,Yorkshire and the Humber,female
+178539,Age 45 to 49,white,Yorkshire and the Humber,female
+161966,Age 50 to 54,white,Yorkshire and the Humber,female
+144943,Age 55 to 59,white,Yorkshire and the Humber,female
+159450,Age 60 to 64,white,Yorkshire and the Humber,female
+126477,Age 65 to 69,white,Yorkshire and the Humber,female
+108629,Age 70 to 74,white,Yorkshire and the Humber,female
+91959,Age 75 to 79,white,Yorkshire and the Humber,female
+73177,Age 80 to 84,white,Yorkshire and the Humber,female
+76669,Age 85 and over,white,Yorkshire and the Humber,female
+52527,Age 18 to 19,white,East Midlands,female
+128031,Age 20 to 24,white,East Midlands,female
+118331,Age 25 to 29,white,East Midlands,female
+113448,Age 30 to 34,white,East Midlands,female
+128813,Age 35 to 39,white,East Midlands,female
+152846,Age 40 to 44,white,East Midlands,female
+156679,Age 45 to 49,white,East Midlands,female
+137715,Age 50 to 54,white,East Midlands,female
+126210,Age 55 to 59,white,East Midlands,female
+140284,Age 60 to 64,white,East Midlands,female
+113708,Age 65 to 69,white,East Midlands,female
+90593,Age 70 to 74,white,East Midlands,female
+76349,Age 75 to 79,white,East Midlands,female
+62652,Age 80 to 84,white,East Midlands,female
+66792,Age 85 and over,white,East Midlands,female
+57450,Age 18 to 19,white,West Midlands,female
+144529,Age 20 to 24,white,West Midlands,female
+137137,Age 25 to 29,white,West Midlands,female
+128409,Age 30 to 34,white,West Midlands,female
+142797,Age 35 to 39,white,West Midlands,female
+171468,Age 40 to 44,white,West Midlands,female
+176590,Age 45 to 49,white,West Midlands,female
+155837,Age 50 to 54,white,West Midlands,female
+144563,Age 55 to 59,white,West Midlands,female
+158521,Age 60 to 64,white,West Midlands,female
+134803,Age 65 to 69,white,West Midlands,female
+110257,Age 70 to 74,white,West Midlands,female
+92635,Age 75 to 79,white,West Midlands,female
+75876,Age 80 to 84,white,West Midlands,female
+81600,Age 85 and over,white,West Midlands,female
+58522,Age 18 to 19,white,East of England,female
+151652,Age 20 to 24,white,East of England,female
+157335,Age 25 to 29,white,East of England,female
+156653,Age 30 to 34,white,East of England,female
+172032,Age 35 to 39,white,East of England,female
+198403,Age 40 to 44,white,East of England,female
+203921,Age 45 to 49,white,East of England,female
+179307,Age 50 to 54,white,East of England,female
+164240,Age 55 to 59,white,East of England,female
+184643,Age 60 to 64,white,East of England,female
+146446,Age 65 to 69,white,East of England,female
+120292,Age 70 to 74,white,East of England,female
+105084,Age 75 to 79,white,East of England,female
+86290,Age 80 to 84,white,East of England,female
+94044,Age 85 and over,white,East of England,female
+48912,Age 18 to 19,white,London,female
+179872,Age 20 to 24,white,London,female
+255087,Age 25 to 29,white,London,female
+233615,Age 30 to 34,white,London,female
+189826,Age 35 to 39,white,London,female
+177334,Age 40 to 44,white,London,female
+170920,Age 45 to 49,white,London,female
+146768,Age 50 to 54,white,London,female
+127240,Age 55 to 59,white,London,female
+130250,Age 60 to 64,white,London,female
+100152,Age 65 to 69,white,London,female
+84984,Age 70 to 74,white,London,female
+76465,Age 75 to 79,white,London,female
+65615,Age 80 to 84,white,London,female
+75087,Age 85 and over,white,London,female
+92872,Age 18 to 19,white,South East,female
+230544,Age 20 to 24,white,South East,female
+227641,Age 25 to 29,white,South East,female
+231450,Age 30 to 34,white,South East,female
+256551,Age 35 to 39,white,South East,female
+295815,Age 40 to 44,white,South East,female
+305172,Age 45 to 49,white,South East,female
+266643,Age 50 to 54,white,South East,female
+237169,Age 55 to 59,white,South East,female
+263095,Age 60 to 64,white,South East,female
+212198,Age 65 to 69,white,South East,female
+173506,Age 70 to 74,white,South East,female
+150476,Age 75 to 79,white,South East,female
+125740,Age 80 to 84,white,South East,female
+145133,Age 85 and over,white,South East,female
+61443,Age 18 to 19,white,South West,female
+151029,Age 20 to 24,white,South West,female
+140823,Age 25 to 29,white,South West,female
+136518,Age 30 to 34,white,South West,female
+152669,Age 35 to 39,white,South West,female
+181764,Age 40 to 44,white,South West,female
+190407,Age 45 to 49,white,South West,female
+172589,Age 50 to 54,white,South West,female
+161694,Age 55 to 59,white,South West,female
+182700,Age 60 to 64,white,South West,female
+150696,Age 65 to 69,white,South West,female
+121369,Age 70 to 74,white,South West,female
+105136,Age 75 to 79,white,South West,female
+88265,Age 80 to 84,white,South West,female
+102893,Age 85 and over,white,South West,female
+39954,Age 18 to 19,white,Wales,female
+96153,Age 20 to 24,white,Wales,female
+85882,Age 25 to 29,white,Wales,female
+80960,Age 30 to 34,white,Wales,female
+87227,Age 35 to 39,white,Wales,female
+104177,Age 40 to 44,white,Wales,female
+108762,Age 45 to 49,white,Wales,female
+99935,Age 50 to 54,white,Wales,female
+93182,Age 55 to 59,white,Wales,female
+102663,Age 60 to 64,white,Wales,female
+83939,Age 65 to 69,white,Wales,female
+69307,Age 70 to 74,white,Wales,female
+58696,Age 75 to 79,white,Wales,female
+46023,Age 80 to 84,white,Wales,female
+50487,Age 85 and over,white,Wales,female
+474,Age 18 to 19,mixed,North East,female
+1108,Age 20 to 24,mixed,North East,female
+837,Age 25 to 29,mixed,North East,female
+753,Age 30 to 34,mixed,North East,female
+605,Age 35 to 39,mixed,North East,female
+592,Age 40 to 44,mixed,North East,female
+482,Age 45 to 49,mixed,North East,female
+346,Age 50 to 54,mixed,North East,female
+229,Age 55 to 59,mixed,North East,female
+207,Age 60 to 64,mixed,North East,female
+122,Age 65 to 69,mixed,North East,female
+91,Age 70 to 74,mixed,North East,female
+98,Age 75 to 79,mixed,North East,female
+81,Age 80 to 84,mixed,North East,female
+47,Age 85 and over,mixed,North East,female
+2406,Age 18 to 19,mixed,North West,female
+5545,Age 20 to 24,mixed,North West,female
+4403,Age 25 to 29,mixed,North West,female
+3578,Age 30 to 34,mixed,North West,female
+2959,Age 35 to 39,mixed,North West,female
+2961,Age 40 to 44,mixed,North West,female
+2490,Age 45 to 49,mixed,North West,female
+1594,Age 50 to 54,mixed,North West,female
+995,Age 55 to 59,mixed,North West,female
+793,Age 60 to 64,mixed,North West,female
+542,Age 65 to 69,mixed,North West,female
+360,Age 70 to 74,mixed,North West,female
+312,Age 75 to 79,mixed,North West,female
+232,Age 80 to 84,mixed,North West,female
+186,Age 85 and over,mixed,North West,female
+2093,Age 18 to 19,mixed,Yorkshire and the Humber,female
+4495,Age 20 to 24,mixed,Yorkshire and the Humber,female
+3242,Age 25 to 29,mixed,Yorkshire and the Humber,female
+2368,Age 30 to 34,mixed,Yorkshire and the Humber,female
+1998,Age 35 to 39,mixed,Yorkshire and the Humber,female
+2016,Age 40 to 44,mixed,Yorkshire and the Humber,female
+1774,Age 45 to 49,mixed,Yorkshire and the Humber,female
+1054,Age 50 to 54,mixed,Yorkshire and the Humber,female
+618,Age 55 to 59,mixed,Yorkshire and the Humber,female
+435,Age 60 to 64,mixed,Yorkshire and the Humber,female
+288,Age 65 to 69,mixed,Yorkshire and the Humber,female
+243,Age 70 to 74,mixed,Yorkshire and the Humber,female
+200,Age 75 to 79,mixed,Yorkshire and the Humber,female
+139,Age 80 to 84,mixed,Yorkshire and the Humber,female
+128,Age 85 and over,mixed,Yorkshire and the Humber,female
+2243,Age 18 to 19,mixed,East Midlands,female
+4513,Age 20 to 24,mixed,East Midlands,female
+3024,Age 25 to 29,mixed,East Midlands,female
+2444,Age 30 to 34,mixed,East Midlands,female
+2159,Age 35 to 39,mixed,East Midlands,female
+1990,Age 40 to 44,mixed,East Midlands,female
+1633,Age 45 to 49,mixed,East Midlands,female
+1058,Age 50 to 54,mixed,East Midlands,female
+622,Age 55 to 59,mixed,East Midlands,female
+411,Age 60 to 64,mixed,East Midlands,female
+355,Age 65 to 69,mixed,East Midlands,female
+258,Age 70 to 74,mixed,East Midlands,female
+194,Age 75 to 79,mixed,East Midlands,female
+176,Age 80 to 84,mixed,East Midlands,female
+135,Age 85 and over,mixed,East Midlands,female
+3254,Age 18 to 19,mixed,West Midlands,female
+6998,Age 20 to 24,mixed,West Midlands,female
+4856,Age 25 to 29,mixed,West Midlands,female
+3569,Age 30 to 34,mixed,West Midlands,female
+2920,Age 35 to 39,mixed,West Midlands,female
+2863,Age 40 to 44,mixed,West Midlands,female
+2471,Age 45 to 49,mixed,West Midlands,female
+1468,Age 50 to 54,mixed,West Midlands,female
+811,Age 55 to 59,mixed,West Midlands,female
+614,Age 60 to 64,mixed,West Midlands,female
+414,Age 65 to 69,mixed,West Midlands,female
+323,Age 70 to 74,mixed,West Midlands,female
+279,Age 75 to 79,mixed,West Midlands,female
+181,Age 80 to 84,mixed,West Midlands,female
+185,Age 85 and over,mixed,West Midlands,female
+2169,Age 18 to 19,mixed,East of England,female
+4773,Age 20 to 24,mixed,East of England,female
+3829,Age 25 to 29,mixed,East of England,female
+3250,Age 30 to 34,mixed,East of England,female
+2755,Age 35 to 39,mixed,East of England,female
+2652,Age 40 to 44,mixed,East of England,female
+2228,Age 45 to 49,mixed,East of England,female
+1390,Age 50 to 54,mixed,East of England,female
+919,Age 55 to 59,mixed,East of England,female
+749,Age 60 to 64,mixed,East of England,female
+482,Age 65 to 69,mixed,East of England,female
+452,Age 70 to 74,mixed,East of England,female
+335,Age 75 to 79,mixed,East of England,female
+220,Age 80 to 84,mixed,East of England,female
+225,Age 85 and over,mixed,East of England,female
+7322,Age 18 to 19,mixed,London,female
+19052,Age 20 to 24,mixed,London,female
+19880,Age 25 to 29,mixed,London,female
+15947,Age 30 to 34,mixed,London,female
+12203,Age 35 to 39,mixed,London,female
+10452,Age 40 to 44,mixed,London,female
+8827,Age 45 to 49,mixed,London,female
+5899,Age 50 to 54,mixed,London,female
+3641,Age 55 to 59,mixed,London,female
+2679,Age 60 to 64,mixed,London,female
+2102,Age 65 to 69,mixed,London,female
+1592,Age 70 to 74,mixed,London,female
+1215,Age 75 to 79,mixed,London,female
+824,Age 80 to 84,mixed,London,female
+671,Age 85 and over,mixed,London,female
+3454,Age 18 to 19,mixed,South East,female
+7039,Age 20 to 24,mixed,South East,female
+5517,Age 25 to 29,mixed,South East,female
+4823,Age 30 to 34,mixed,South East,female
+4468,Age 35 to 39,mixed,South East,female
+4115,Age 40 to 44,mixed,South East,female
+3492,Age 45 to 49,mixed,South East,female
+2265,Age 50 to 54,mixed,South East,female
+1475,Age 55 to 59,mixed,South East,female
+1248,Age 60 to 64,mixed,South East,female
+976,Age 65 to 69,mixed,South East,female
+701,Age 70 to 74,mixed,South East,female
+518,Age 75 to 79,mixed,South East,female
+350,Age 80 to 84,mixed,South East,female
+348,Age 85 and over,mixed,South East,female
+1647,Age 18 to 19,mixed,South West,female
+3517,Age 20 to 24,mixed,South West,female
+2612,Age 25 to 29,mixed,South West,female
+2162,Age 30 to 34,mixed,South West,female
+1857,Age 35 to 39,mixed,South West,female
+1819,Age 40 to 44,mixed,South West,female
+1571,Age 45 to 49,mixed,South West,female
+1091,Age 50 to 54,mixed,South West,female
+695,Age 55 to 59,mixed,South West,female
+583,Age 60 to 64,mixed,South West,female
+481,Age 65 to 69,mixed,South West,female
+291,Age 70 to 74,mixed,South West,female
+269,Age 75 to 79,mixed,South West,female
+169,Age 80 to 84,mixed,South West,female
+162,Age 85 and over,mixed,South West,female
+722,Age 18 to 19,mixed,Wales,female
+1624,Age 20 to 24,mixed,Wales,female
+1223,Age 25 to 29,mixed,Wales,female
+971,Age 30 to 34,mixed,Wales,female
+834,Age 35 to 39,mixed,Wales,female
+878,Age 40 to 44,mixed,Wales,female
+833,Age 45 to 49,mixed,Wales,female
+582,Age 50 to 54,mixed,Wales,female
+382,Age 55 to 59,mixed,Wales,female
+322,Age 60 to 64,mixed,Wales,female
+277,Age 65 to 69,mixed,Wales,female
+171,Age 70 to 74,mixed,Wales,female
+135,Age 75 to 79,mixed,Wales,female
+98,Age 80 to 84,mixed,Wales,female
+87,Age 85 and over,mixed,Wales,female
+1201,Age 18 to 19,asian,North East,female
+5108,Age 20 to 24,asian,North East,female
+3909,Age 25 to 29,asian,North East,female
+3702,Age 30 to 34,asian,North East,female
+3343,Age 35 to 39,asian,North East,female
+2482,Age 40 to 44,asian,North East,female
+1735,Age 45 to 49,asian,North East,female
+1379,Age 50 to 54,asian,North East,female
+1114,Age 55 to 59,asian,North East,female
+813,Age 60 to 64,asian,North East,female
+442,Age 65 to 69,asian,North East,female
+391,Age 70 to 74,asian,North East,female
+308,Age 75 to 79,asian,North East,female
+185,Age 80 to 84,asian,North East,female
+87,Age 85 and over,asian,North East,female
+7061,Age 18 to 19,asian,North West,female
+22132,Age 20 to 24,asian,North West,female
+22411,Age 25 to 29,asian,North West,female
+22110,Age 30 to 34,asian,North West,female
+18158,Age 35 to 39,asian,North West,female
+14177,Age 40 to 44,asian,North West,female
+10204,Age 45 to 49,asian,North West,female
+9390,Age 50 to 54,asian,North West,female
+7181,Age 55 to 59,asian,North West,female
+4876,Age 60 to 64,asian,North West,female
+3019,Age 65 to 69,asian,North West,female
+2834,Age 70 to 74,asian,North West,female
+1958,Age 75 to 79,asian,North West,female
+1039,Age 80 to 84,asian,North West,female
+622,Age 85 and over,asian,North West,female
+6484,Age 18 to 19,asian,Yorkshire and the Humber,female
+20028,Age 20 to 24,asian,Yorkshire and the Humber,female
+20337,Age 25 to 29,asian,Yorkshire and the Humber,female
+19283,Age 30 to 34,asian,Yorkshire and the Humber,female
+15320,Age 35 to 39,asian,Yorkshire and the Humber,female
+12076,Age 40 to 44,asian,Yorkshire and the Humber,female
+7542,Age 45 to 49,asian,Yorkshire and the Humber,female
+7301,Age 50 to 54,asian,Yorkshire and the Humber,female
+5981,Age 55 to 59,asian,Yorkshire and the Humber,female
+4049,Age 60 to 64,asian,Yorkshire and the Humber,female
+2491,Age 65 to 69,asian,Yorkshire and the Humber,female
+2532,Age 70 to 74,asian,Yorkshire and the Humber,female
+1897,Age 75 to 79,asian,Yorkshire and the Humber,female
+1025,Age 80 to 84,asian,Yorkshire and the Humber,female
+581,Age 85 and over,asian,Yorkshire and the Humber,female
+4953,Age 18 to 19,asian,East Midlands,female
+15671,Age 20 to 24,asian,East Midlands,female
+13770,Age 25 to 29,asian,East Midlands,female
+13403,Age 30 to 34,asian,East Midlands,female
+11956,Age 35 to 39,asian,East Midlands,female
+10712,Age 40 to 44,asian,East Midlands,female
+9006,Age 45 to 49,asian,East Midlands,female
+8357,Age 50 to 54,asian,East Midlands,female
+7106,Age 55 to 59,asian,East Midlands,female
+5078,Age 60 to 64,asian,East Midlands,female
+3342,Age 65 to 69,asian,East Midlands,female
+2908,Age 70 to 74,asian,East Midlands,female
+2031,Age 75 to 79,asian,East Midlands,female
+1185,Age 80 to 84,asian,East Midlands,female
+810,Age 85 and over,asian,East Midlands,female
+9494,Age 18 to 19,asian,West Midlands,female
+27683,Age 20 to 24,asian,West Midlands,female
+29710,Age 25 to 29,asian,West Midlands,female
+30326,Age 30 to 34,asian,West Midlands,female
+25246,Age 35 to 39,asian,West Midlands,female
+20562,Age 40 to 44,asian,West Midlands,female
+14310,Age 45 to 49,asian,West Midlands,female
+12685,Age 50 to 54,asian,West Midlands,female
+11515,Age 55 to 59,asian,West Midlands,female
+8344,Age 60 to 64,asian,West Midlands,female
+5547,Age 65 to 69,asian,West Midlands,female
+4910,Age 70 to 74,asian,West Midlands,female
+3748,Age 75 to 79,asian,West Midlands,female
+2225,Age 80 to 84,asian,West Midlands,female
+1395,Age 85 and over,asian,West Midlands,female
+3870,Age 18 to 19,asian,East of England,female
+11559,Age 20 to 24,asian,East of England,female
+14475,Age 25 to 29,asian,East of England,female
+15803,Age 30 to 34,asian,East of England,female
+13807,Age 35 to 39,asian,East of England,female
+10526,Age 40 to 44,asian,East of England,female
+7874,Age 45 to 49,asian,East of England,female
+6792,Age 50 to 54,asian,East of England,female
+5820,Age 55 to 59,asian,East of England,female
+4227,Age 60 to 64,asian,East of England,female
+2584,Age 65 to 69,asian,East of England,female
+2022,Age 70 to 74,asian,East of England,female
+1375,Age 75 to 79,asian,East of England,female
+769,Age 80 to 84,asian,East of England,female
+478,Age 85 and over,asian,East of England,female
+19595,Age 18 to 19,asian,London,female
+66880,Age 20 to 24,asian,London,female
+86366,Age 25 to 29,asian,London,female
+83352,Age 30 to 34,asian,London,female
+66987,Age 35 to 39,asian,London,female
+53011,Age 40 to 44,asian,London,female
+43605,Age 45 to 49,asian,London,female
+39152,Age 50 to 54,asian,London,female
+34422,Age 55 to 59,asian,London,female
+27215,Age 60 to 64,asian,London,female
+18504,Age 65 to 69,asian,London,female
+15257,Age 70 to 74,asian,London,female
+10210,Age 75 to 79,asian,London,female
+5750,Age 80 to 84,asian,London,female
+3746,Age 85 and over,asian,London,female
+6913,Age 18 to 19,asian,South East,female
+18935,Age 20 to 24,asian,South East,female
+23427,Age 25 to 29,asian,South East,female
+26509,Age 30 to 34,asian,South East,female
+23221,Age 35 to 39,asian,South East,female
+18259,Age 40 to 44,asian,South East,female
+13314,Age 45 to 49,asian,South East,female
+11333,Age 50 to 54,asian,South East,female
+9064,Age 55 to 59,asian,South East,female
+7046,Age 60 to 64,asian,South East,female
+4142,Age 65 to 69,asian,South East,female
+3366,Age 70 to 74,asian,South East,female
+2185,Age 75 to 79,asian,South East,female
+1155,Age 80 to 84,asian,South East,female
+747,Age 85 and over,asian,South East,female
+2065,Age 18 to 19,asian,South West,female
+5864,Age 20 to 24,asian,South West,female
+5620,Age 25 to 29,asian,South West,female
+6001,Age 30 to 34,asian,South West,female
+5635,Age 35 to 39,asian,South West,female
+4500,Age 40 to 44,asian,South West,female
+3293,Age 45 to 49,asian,South West,female
+2621,Age 50 to 54,asian,South West,female
+1950,Age 55 to 59,asian,South West,female
+1375,Age 60 to 64,asian,South West,female
+807,Age 65 to 69,asian,South West,female
+651,Age 70 to 74,asian,South West,female
+423,Age 75 to 79,asian,South West,female
+247,Age 80 to 84,asian,South West,female
+159,Age 85 and over,asian,South West,female
+1097,Age 18 to 19,asian,Wales,female
+4021,Age 20 to 24,asian,Wales,female
+3337,Age 25 to 29,asian,Wales,female
+3710,Age 30 to 34,asian,Wales,female
+3380,Age 35 to 39,asian,Wales,female
+2537,Age 40 to 44,asian,Wales,female
+1679,Age 45 to 49,asian,Wales,female
+1545,Age 50 to 54,asian,Wales,female
+1163,Age 55 to 59,asian,Wales,female
+782,Age 60 to 64,asian,Wales,female
+471,Age 65 to 69,asian,Wales,female
+373,Age 70 to 74,asian,Wales,female
+243,Age 75 to 79,asian,Wales,female
+128,Age 80 to 84,asian,Wales,female
+95,Age 85 and over,asian,Wales,female
+222,Age 18 to 19,black,North East,female
+552,Age 20 to 24,black,North East,female
+694,Age 25 to 29,black,North East,female
+803,Age 30 to 34,black,North East,female
+626,Age 35 to 39,black,North East,female
+434,Age 40 to 44,black,North East,female
+293,Age 45 to 49,black,North East,female
+201,Age 50 to 54,black,North East,female
+95,Age 55 to 59,black,North East,female
+62,Age 60 to 64,black,North East,female
+38,Age 65 to 69,black,North East,female
+30,Age 70 to 74,black,North East,female
+20,Age 75 to 79,black,North East,female
+8,Age 80 to 84,black,North East,female
+5,Age 85 and over,black,North East,female
+1557,Age 18 to 19,black,North West,female
+3796,Age 20 to 24,black,North West,female
+4295,Age 25 to 29,black,North West,female
+5015,Age 30 to 34,black,North West,female
+4393,Age 35 to 39,black,North West,female
+4005,Age 40 to 44,black,North West,female
+3517,Age 45 to 49,black,North West,female
+2128,Age 50 to 54,black,North West,female
+1243,Age 55 to 59,black,North West,female
+768,Age 60 to 64,black,North West,female
+752,Age 65 to 69,black,North West,female
+811,Age 70 to 74,black,North West,female
+607,Age 75 to 79,black,North West,female
+321,Age 80 to 84,black,North West,female
+158,Age 85 and over,black,North West,female
+1419,Age 18 to 19,black,Yorkshire and the Humber,female
+3336,Age 20 to 24,black,Yorkshire and the Humber,female
+3565,Age 25 to 29,black,Yorkshire and the Humber,female
+3604,Age 30 to 34,black,Yorkshire and the Humber,female
+3361,Age 35 to 39,black,Yorkshire and the Humber,female
+3257,Age 40 to 44,black,Yorkshire and the Humber,female
+3129,Age 45 to 49,black,Yorkshire and the Humber,female
+1976,Age 50 to 54,black,Yorkshire and the Humber,female
+1000,Age 55 to 59,black,Yorkshire and the Humber,female
+588,Age 60 to 64,black,Yorkshire and the Humber,female
+644,Age 65 to 69,black,Yorkshire and the Humber,female
+761,Age 70 to 74,black,Yorkshire and the Humber,female
+663,Age 75 to 79,black,Yorkshire and the Humber,female
+322,Age 80 to 84,black,Yorkshire and the Humber,female
+168,Age 85 and over,black,Yorkshire and the Humber,female
+1663,Age 18 to 19,black,East Midlands,female
+3531,Age 20 to 24,black,East Midlands,female
+3163,Age 25 to 29,black,East Midlands,female
+3495,Age 30 to 34,black,East Midlands,female
+3496,Age 35 to 39,black,East Midlands,female
+3675,Age 40 to 44,black,East Midlands,female
+3529,Age 45 to 49,black,East Midlands,female
+2263,Age 50 to 54,black,East Midlands,female
+1210,Age 55 to 59,black,East Midlands,female
+766,Age 60 to 64,black,East Midlands,female
+735,Age 65 to 69,black,East Midlands,female
+894,Age 70 to 74,black,East Midlands,female
+572,Age 75 to 79,black,East Midlands,female
+357,Age 80 to 84,black,East Midlands,female
+183,Age 85 and over,black,East Midlands,female
+2964,Age 18 to 19,black,West Midlands,female
+6928,Age 20 to 24,black,West Midlands,female
+7283,Age 25 to 29,black,West Midlands,female
+7866,Age 30 to 34,black,West Midlands,female
+7182,Age 35 to 39,black,West Midlands,female
+8447,Age 40 to 44,black,West Midlands,female
+8917,Age 45 to 49,black,West Midlands,female
+5384,Age 50 to 54,black,West Midlands,female
+2790,Age 55 to 59,black,West Midlands,female
+1698,Age 60 to 64,black,West Midlands,female
+1813,Age 65 to 69,black,West Midlands,female
+2417,Age 70 to 74,black,West Midlands,female
+1872,Age 75 to 79,black,West Midlands,female
+1153,Age 80 to 84,black,West Midlands,female
+635,Age 85 and over,black,West Midlands,female
+1908,Age 18 to 19,black,East of England,female
+3900,Age 20 to 24,black,East of England,female
+4572,Age 25 to 29,black,East of England,female
+5920,Age 30 to 34,black,East of England,female
+5800,Age 35 to 39,black,East of England,female
+6212,Age 40 to 44,black,East of England,female
+5177,Age 45 to 49,black,East of England,female
+3001,Age 50 to 54,black,East of England,female
+1763,Age 55 to 59,black,East of England,female
+1056,Age 60 to 64,black,East of England,female
+948,Age 65 to 69,black,East of England,female
+804,Age 70 to 74,black,East of England,female
+633,Age 75 to 79,black,East of England,female
+299,Age 80 to 84,black,East of England,female
+187,Age 85 and over,black,East of England,female
+16050,Age 18 to 19,black,London,female
+42439,Age 20 to 24,black,London,female
+45478,Age 25 to 29,black,London,female
+46984,Age 30 to 34,black,London,female
+46863,Age 35 to 39,black,London,female
+54147,Age 40 to 44,black,London,female
+51143,Age 45 to 49,black,London,female
+34820,Age 50 to 54,black,London,female
+20087,Age 55 to 59,black,London,female
+13072,Age 60 to 64,black,London,female
+12292,Age 65 to 69,black,London,female
+11780,Age 70 to 74,black,London,female
+8081,Age 75 to 79,black,London,female
+4553,Age 80 to 84,black,London,female
+2519,Age 85 and over,black,London,female
+2368,Age 18 to 19,black,South East,female
+5023,Age 20 to 24,black,South East,female
+5582,Age 25 to 29,black,South East,female
+7132,Age 30 to 34,black,South East,female
+6772,Age 35 to 39,black,South East,female
+6604,Age 40 to 44,black,South East,female
+5369,Age 45 to 49,black,South East,female
+3528,Age 50 to 54,black,South East,female
+2053,Age 55 to 59,black,South East,female
+1357,Age 60 to 64,black,South East,female
+1057,Age 65 to 69,black,South East,female
+860,Age 70 to 74,black,South East,female
+548,Age 75 to 79,black,South East,female
+273,Age 80 to 84,black,South East,female
+164,Age 85 and over,black,South East,female
+792,Age 18 to 19,black,South West,female
+1850,Age 20 to 24,black,South West,female
+2174,Age 25 to 29,black,South West,female
+2168,Age 30 to 34,black,South West,female
+1973,Age 35 to 39,black,South West,female
+1926,Age 40 to 44,black,South West,female
+1823,Age 45 to 49,black,South West,female
+1213,Age 50 to 54,black,South West,female
+706,Age 55 to 59,black,South West,female
+459,Age 60 to 64,black,South West,female
+428,Age 65 to 69,black,South West,female
+458,Age 70 to 74,black,South West,female
+409,Age 75 to 79,black,South West,female
+228,Age 80 to 84,black,South West,female
+123,Age 85 and over,black,South West,female
+301,Age 18 to 19,black,Wales,female
+839,Age 20 to 24,black,Wales,female
+858,Age 25 to 29,black,Wales,female
+830,Age 30 to 34,black,Wales,female
+757,Age 35 to 39,black,Wales,female
+667,Age 40 to 44,black,Wales,female
+590,Age 45 to 49,black,Wales,female
+388,Age 50 to 54,black,Wales,female
+213,Age 55 to 59,black,Wales,female
+147,Age 60 to 64,black,Wales,female
+116,Age 65 to 69,black,Wales,female
+128,Age 70 to 74,black,Wales,female
+89,Age 75 to 79,black,Wales,female
+57,Age 80 to 84,black,Wales,female
+39,Age 85 and over,black,Wales,female
+157,Age 18 to 19,other,North East,female
+435,Age 20 to 24,other,North East,female
+488,Age 25 to 29,other,North East,female
+435,Age 30 to 34,other,North East,female
+402,Age 35 to 39,other,North East,female
+294,Age 40 to 44,other,North East,female
+229,Age 45 to 49,other,North East,female
+133,Age 50 to 54,other,North East,female
+111,Age 55 to 59,other,North East,female
+59,Age 60 to 64,other,North East,female
+47,Age 65 to 69,other,North East,female
+27,Age 70 to 74,other,North East,female
+16,Age 75 to 79,other,North East,female
+15,Age 80 to 84,other,North East,female
+11,Age 85 and over,other,North East,female
+651,Age 18 to 19,other,North West,female
+1495,Age 20 to 24,other,North West,female
+2128,Age 25 to 29,other,North West,female
+1944,Age 30 to 34,other,North West,female
+1550,Age 35 to 39,other,North West,female
+1166,Age 40 to 44,other,North West,female
+816,Age 45 to 49,other,North West,female
+607,Age 50 to 54,other,North West,female
+392,Age 55 to 59,other,North West,female
+288,Age 60 to 64,other,North West,female
+193,Age 65 to 69,other,North West,female
+127,Age 70 to 74,other,North West,female
+124,Age 75 to 79,other,North West,female
+72,Age 80 to 84,other,North West,female
+64,Age 85 and over,other,North West,female
+534,Age 18 to 19,other,Yorkshire and the Humber,female
+1740,Age 20 to 24,other,Yorkshire and the Humber,female
+2097,Age 25 to 29,other,Yorkshire and the Humber,female
+1686,Age 30 to 34,other,Yorkshire and the Humber,female
+1362,Age 35 to 39,other,Yorkshire and the Humber,female
+1019,Age 40 to 44,other,Yorkshire and the Humber,female
+640,Age 45 to 49,other,Yorkshire and the Humber,female
+558,Age 50 to 54,other,Yorkshire and the Humber,female
+376,Age 55 to 59,other,Yorkshire and the Humber,female
+236,Age 60 to 64,other,Yorkshire and the Humber,female
+143,Age 65 to 69,other,Yorkshire and the Humber,female
+139,Age 70 to 74,other,Yorkshire and the Humber,female
+123,Age 75 to 79,other,Yorkshire and the Humber,female
+104,Age 80 to 84,other,Yorkshire and the Humber,female
+43,Age 85 and over,other,Yorkshire and the Humber,female
+358,Age 18 to 19,other,East Midlands,female
+1008,Age 20 to 24,other,East Midlands,female
+1429,Age 25 to 29,other,East Midlands,female
+1107,Age 30 to 34,other,East Midlands,female
+995,Age 35 to 39,other,East Midlands,female
+679,Age 40 to 44,other,East Midlands,female
+504,Age 45 to 49,other,East Midlands,female
+436,Age 50 to 54,other,East Midlands,female
+349,Age 55 to 59,other,East Midlands,female
+246,Age 60 to 64,other,East Midlands,female
+138,Age 65 to 69,other,East Midlands,female
+118,Age 70 to 74,other,East Midlands,female
+85,Age 75 to 79,other,East Midlands,female
+56,Age 80 to 84,other,East Midlands,female
+51,Age 85 and over,other,East Midlands,female
+636,Age 18 to 19,other,West Midlands,female
+1933,Age 20 to 24,other,West Midlands,female
+2263,Age 25 to 29,other,West Midlands,female
+2169,Age 30 to 34,other,West Midlands,female
+1772,Age 35 to 39,other,West Midlands,female
+1337,Age 40 to 44,other,West Midlands,female
+1018,Age 45 to 49,other,West Midlands,female
+896,Age 50 to 54,other,West Midlands,female
+790,Age 55 to 59,other,West Midlands,female
+579,Age 60 to 64,other,West Midlands,female
+377,Age 65 to 69,other,West Midlands,female
+337,Age 70 to 74,other,West Midlands,female
+269,Age 75 to 79,other,West Midlands,female
+166,Age 80 to 84,other,West Midlands,female
+112,Age 85 and over,other,West Midlands,female
+333,Age 18 to 19,other,East of England,female
+1042,Age 20 to 24,other,East of England,female
+1540,Age 25 to 29,other,East of England,female
+1434,Age 30 to 34,other,East of England,female
+1206,Age 35 to 39,other,East of England,female
+1014,Age 40 to 44,other,East of England,female
+772,Age 45 to 49,other,East of England,female
+566,Age 50 to 54,other,East of England,female
+467,Age 55 to 59,other,East of England,female
+372,Age 60 to 64,other,East of England,female
+178,Age 65 to 69,other,East of England,female
+161,Age 70 to 74,other,East of England,female
+112,Age 75 to 79,other,East of England,female
+82,Age 80 to 84,other,East of England,female
+61,Age 85 and over,other,East of England,female
+3885,Age 18 to 19,other,London,female
+11326,Age 20 to 24,other,London,female
+13967,Age 25 to 29,other,London,female
+13765,Age 30 to 34,other,London,female
+11903,Age 35 to 39,other,London,female
+10390,Age 40 to 44,other,London,female
+8414,Age 45 to 49,other,London,female
+6567,Age 50 to 54,other,London,female
+5003,Age 55 to 59,other,London,female
+3782,Age 60 to 64,other,London,female
+2608,Age 65 to 69,other,London,female
+1944,Age 70 to 74,other,London,female
+1327,Age 75 to 79,other,London,female
+854,Age 80 to 84,other,London,female
+612,Age 85 and over,other,London,female
+724,Age 18 to 19,other,South East,female
+1905,Age 20 to 24,other,South East,female
+2356,Age 25 to 29,other,South East,female
+2533,Age 30 to 34,other,South East,female
+2304,Age 35 to 39,other,South East,female
+1782,Age 40 to 44,other,South East,female
+1448,Age 45 to 49,other,South East,female
+1187,Age 50 to 54,other,South East,female
+918,Age 55 to 59,other,South East,female
+729,Age 60 to 64,other,South East,female
+502,Age 65 to 69,other,South East,female
+326,Age 70 to 74,other,South East,female
+219,Age 75 to 79,other,South East,female
+140,Age 80 to 84,other,South East,female
+118,Age 85 and over,other,South East,female
+188,Age 18 to 19,other,South West,female
+516,Age 20 to 24,other,South West,female
+739,Age 25 to 29,other,South West,female
+836,Age 30 to 34,other,South West,female
+661,Age 35 to 39,other,South West,female
+500,Age 40 to 44,other,South West,female
+359,Age 45 to 49,other,South West,female
+320,Age 50 to 54,other,South West,female
+230,Age 55 to 59,other,South West,female
+146,Age 60 to 64,other,South West,female
+127,Age 65 to 69,other,South West,female
+83,Age 70 to 74,other,South West,female
+64,Age 75 to 79,other,South West,female
+45,Age 80 to 84,other,South West,female
+39,Age 85 and over,other,South West,female
+236,Age 18 to 19,other,Wales,female
+522,Age 20 to 24,other,Wales,female
+666,Age 25 to 29,other,Wales,female
+670,Age 30 to 34,other,Wales,female
+509,Age 35 to 39,other,Wales,female
+405,Age 40 to 44,other,Wales,female
+319,Age 45 to 49,other,Wales,female
+188,Age 50 to 54,other,Wales,female
+129,Age 55 to 59,other,Wales,female
+104,Age 60 to 64,other,Wales,female
+88,Age 65 to 69,other,Wales,female
+60,Age 70 to 74,other,Wales,female
+45,Age 75 to 79,other,Wales,female
+38,Age 80 to 84,other,Wales,female
+32,Age 85 and over,other,Wales,female
