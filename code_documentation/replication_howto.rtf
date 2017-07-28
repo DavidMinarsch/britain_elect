@@ -1,0 +1,607 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \qc \f0 \sa180 \li0 \fi0 \b \fs36 Generating constituency-level opinion, with code\par}
+{\pard \qc \f0 \sa180 \li0 \fi0  HLV\par}
+{\pard \qc \f0 \sa180 \li0 \fi0  November 2014\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 Introduction\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This document describes code used to generate estimates of opinion at the constituency level. It is distributed as part of a zip archive that contains some of the files needed to generate these estimates. The document is built with Knitr, an example of literate programming, such that the R source code used to generate these estimates is embedded within the document itself. This R code can be found at {\f1 replication_howto.R}.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 If life gives you a chainsaw\u8230?\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 We\u8217've written this document so that other researchers can estimate opinion at the constituency level without investing substantial effort in sourcing, reconciling and recoding census and survey data. We\u8217've used this code (or versions of it) to estimate constituency-level opinion on Europe, on immigration, on taxation, on crime, and on other issues.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 If you want to understand this code, you should read the accompanying {\field{\*\fldinst{HYPERLINK "http://constituencyopinion.org.uk/wp-content/uploads/2014/10/constituency-estimates-technical-report.pdf"}}{\fldrslt{\ul
+technical report
+}}}
+. The technical report describes what we\u8217're doing: the code below describes how we do it.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The technical report gives details on how individual level predictors and post-stratification can be combined with spatial data and constituency-level predictors to produce estimates of opinions. For the \u8220"political\u8221" opinions we\u8217've studied so far, demographic predictors make sense, and explain a reasonable proportion of the individual level variance in the relevant opinion.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 However, there are some circumstances where we would caution against using this code to estimate opinion at the constituency level.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 First, don\u8217't use this code if the opinion you\u8217're interested in is not obviously related to individual respondents\u8217' occupation or education. It would be wrong, for example, to estimate constituency level opinion concerning {\field{\*\fldinst{HYPERLINK "https://yougov.co.uk/news/2012/05/08/britains-favourite-shakespeare/"}}{\fldrslt{\ul
+favourite Shakespeare plays
+}}}
+, for example.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Second, don\u8217't use this code if the opinion you\u8217're interested in is, by its very nature, local. When we estimate responses towards Europe (as we do in this document), there is a common stimulus to which people are reacting. Our modelling exploits commonalities in responses amongst people who live in different places but who are alike in their characteristics. If, however, we were to estimate opinion concerning satisfaction with local councils, there would be no such commonality.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 Dependencies\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Estimating constituency level opinion is a complex endeavour, which depends upon several pieces of freely available software. We begin by setting out the software dependencies you need, before moving on to discuss the data dependencies.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Software dependencies\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 First, you\u8217'll need a recent version of {\field{\*\fldinst{HYPERLINK "http://www.r-project.org/"}}{\fldrslt{\ul
+R
+}}}
+. This document was created using the following R version:\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 R.Version()$version.string\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 [1] \u8220"R version 3.1.1 (2014-07-10)\u8221"\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 and the following random seed:\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 set.seed(2511)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Second, you\u8217'll need a version of {\field{\*\fldinst{HYPERLINK "http://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/"}}{\fldrslt{\ul
+WinBUGS
+}}}
+. You need WinBUGS rather than an other Gibbs sampler (like, say, {\field{\*\fldinst{HYPERLINK "http://mcmc-jags.sourceforge.net/"}}{\fldrslt{\ul
+JAGS
+}}}
+) because, to the best of our knowledge, only WinBUGS can draw from a conditional autoregressive normal distribution. If you\u8217're not running a Windows computer, you should know that WinBUGS can be run through WINE on Linux, and through Parallels on Macs.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Third, you\u8217'll need a number of R libraries. This document requires the following libraries:\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 library(foreign)\line
+library(memisc)\line
+library(car)\line
+library(maptools)\line
+library(spdep)\line
+library(R2WinBUGS)\line
+library(arm)\line
+library(ggplot2)\line
+library(plyr)\line
+library(rgeos)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Not all of these libraries are strictly necessary to generate constituency-level estimates. Some \u8211- like {\f1 car} \u8211- are used only for helping in recoding variables.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Data dependencies\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Moving on to the data dependencies, you\u8217'll first need a data-set with responses from several thousand individuals. This data-set must contain information on (a) an opinion of interest, (b) the constituency of each respondent; and (c) additional individual-level variables which can be matched with the information collected by the Census. In this document, we use Wave 2 of the British Election Study 2015. We cannot redistribute this data, so you will need to download it and change the {\f1 bespath} variable to read the data into R. Additionally, we\u8217're going to drop three-quarters of the observations to reduce the computational burden.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 bespath <- "~/Dropbox/constituency-estimates-data/bes-2015/BES2015_W2_Panel_v2.0.sav"\line
+besdat <- read.spss(bespath, \line
+    to.data.frame=TRUE)\line
+nrow(besdat)\line
+besdat <- besdat[sample(1:nrow(besdat),nrow(besdat)/4),]\line
+nrow(besdat)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Second, you\u8217'll need some constituency-level variables and the necessary look-up codes to link these variables to the BES data. These are contained in the zipped folder.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 auxpath <- "./canonical_seatvars_2011census.csv"\line
+lookuppath <- "./name2pa.csv"\line
+aux <- read.csv(auxpath)\line
+lookup <- read.csv(lookuppath)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Third, you\u8217'll need some post-stratification weights. The weights we currently use are transitional weights. We use the sample of anonymised records (SAR) from the 2001 census, and rake this to the marginal distributions from the 2011 census. Once the SAR from the 2011 census is available, we can use information from the 2011 census exclusively.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 pswpath <- "canonical_weights_2001SARS_2011margins_flatfile.csv"\line
+psw <- read.csv(pswpath)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Fourth, you\u8217'll need some shapefiles giving details of the boundaries of the parliamentary constituencies used in Great Britain. Once again, we cannot redistribute this data, as it is held by the Ordnance Survey. Additionally, the Boundary Line data file is quite large. You will need to download this data file yourself, and change the variable {\f1 geopath} in order to read this into R.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 geopath <- "~/Dropbox/constituency-estimates-data/westminster_const_region.shp"\line
+geo <- readShapePoly(geopath)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 You will also need some manual additions \u8211- instances of constituencies which are either genuine islands, or which appear such because of faults in the shapefile.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 joinpath <- "./joins_to_add.csv"\line
+joins.to.add <- read.csv(joinpath, header = TRUE)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 Recoding\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Unfortunately, a lot of work goes into recoding variables in order to make sure that the different sources of data play together nicely. We start with the BES data, before moving on to the geodata.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 BES re-codes\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Dependent variable\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 We start with our dependent variable \u8211- the opinion of interest. Here, we\u8217're going to examine how respondents would vote in a hypothetical referendum on EU membership. This is stored in the BES as a variable called {\f1 euRefVoteW2}. The possible values of this variable are as follows:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab 1 (Leave the EU)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab 0 (Stay in the EU)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab 2 (I would not vote)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab 9999 (Don\u8217't know)\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 We will recode these values into a new variable called {\f1 y} (a more descriptive variable name would normally be preferable, but by calling the variable y we make this code more reusable). This variable will have value 1 if the respondent would vote to leave the EU.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 besdat$y <- as.numeric(as.numeric(besdat$euRefVoteW2) == 2)\line
+besdat$y[as.numeric(besdat$euRefVoteW2) > 2] <- NA\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Individual-level variables\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 We now embark on a lengthy series of recodes designed to match the BES data with the Census weights. This involves recoding variables for age, gender, marital status, housing tenure, highest level of education, and private sector occupation. If any of these recoding operations are unclear, we recommend consulting the BES codebook.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 # Gender\line
+besdat$gender <- factor(besdat$gender,exclude=c("Skipped","Not Asked"))\line
+\line
+# Age\line
+besdat$ageGroup <- 8 - ((besdat$Age <= 19) + \line
+    (besdat$Age <= 24) + \line
+    (besdat$Age <= 29) + \line
+    (besdat$Age <= 44) + \line
+    (besdat$Age <= 59) + \line
+    (besdat$Age <= 64) + \line
+    (besdat$Age <= 74))\line
+besdat$ageGroup <- factor(besdat$ageGroup,\line
+    labels=c("16-19", "20-24","25-29","30-44","45-59","60-64","65-74","75+"))\line
+besdat$ageGroup <- replace(besdat$ageGroup,\line
+    is.na(besdat$ageGroup),\line
+    "45-59") # assign NAs to most frequent category\line
+\line
+# Marital status\line
+besdat$maritalStatus <- car:::recode(besdat$marital,\line
+    "c('Married')='Married or re-married';\line
+    c('Skipped','Not Asked')=NA;\line
+    else='Single (never married), separated, divorced or widowed'")\line
+\line
+## Housing tenure\line
+besdat$housing <- car:::recode(besdat$housing,\line
+    "c('Own the leasehold/freehold outright',\line
+        'Buying leasehold/freehold on a mortgage')='Owns';\line
+    c('Rented from local authority',\line
+        'Rented from private landlord',\line
+        'It belongs to a Housing Association')='Rents';\line
+    else = 'Rents'")\line
+\line
+## Education\line
+besdat$qualifications <- car:::recode(besdat$education,\line
+    "'No formal qualifications'='No qualifications';\line
+    'Youth training certificate/skillseekers'='Level 2';\line
+    'Recognised trade apprenticeship completed'='Level 2';\line
+    'Clerical and commercial'='Level 1';\line
+    'City and Guild certificate'='Level 1';\line
+    'City and Guild certificate - advanced'='Level 2';\line
+    'onc'='Level 2';\line
+    'CSE grades 2-5'='Level 1';\line
+    'CSE grade 1, GCE O level, GCSE, School Certificate'='Level 2';\line
+    'Scottish Ordinary/ Lower Certificate'='Level 2';\line
+    'GCE A level or Higher Certificate'='Level 3';\line
+    'Scottish Higher Certificate'='Level 3';\line
+    'Nursing qualification (eg SEN, SRN, SCM, RGN)'='Level 4/5';\line
+    'Teaching qualification (not degree)'='Level 4/5';\line
+    'University diploma'='Level 4/5';\line
+    'University or CNAA first degree (eg BA, B.Sc, B.Ed)'='Level 4/5';\line
+    'University or CNAA higher degree (eg M.Sc, Ph.D)'='Level 4/5';\line
+    'Other technical, professional or higher qualification'='Other';else = NA")\line
+\line
+## Private sector occupation\line
+besdat$privateSector <- car:::recode(besdat$work_type,\line
+    "c(1,2)='Private';c(8,9)=NA;else='Public'")\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Having recoded these variables, we now drop all rows in the data without a response to the question on EU exit.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 besdat <- subset(besdat,!is.na(besdat$y))\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 We also drop all rows in the data with missing values for any of our individual level variables. Normally, such a complete-cases strategy would be ill-advisable, but since these individual-level variables are fairly common, the rates of missingness are low, and we can concentrate on complete cases without too much loss of data.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 tokeepvars <- c("gender","ageGroup","maritalStatus",\line
+    "housing","qualifications","privateSector")\line
+tokeep <- complete.cases(besdat[,tokeepvars])\line
+besdat <- besdat[tokeep,]\line
+rm(tokeep, tokeepvars)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Finally, we make sure that the reference codes for the constituency match across data-sets. Because we will eventually need to refer to the constituencies in WinBUGS, we create a continuously numbered version of the constituency reference code. This differs from the Press Association reference codes, which include Northern Irish constituencies which we omit.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 besdat$refno <- besdat$pconrefno\line
+besdat <- merge(besdat,lookup,\line
+    by="refno",\line
+    all.x=T,all.y=F)\line
+besdat <- subset(besdat, !is.na(besdat$refno))\line
+\line
+# Get constituency identifier\line
+# PA numbers are non-consecutive\line
+# So make sure we take number of levels from the factor\line
+besdat$constindex <- as.numeric(factor(besdat$refno))\line
+constindex <- besdat$constindex\line
+\line
+## Create look-up table\line
+const.lookup <- data.frame(refno=unique(besdat$refno),\line
+  refno.num = unique(constindex))\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Geo-data recodes\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 We begin by ensuring a match between the codes by which the individual polygons in the shapefile are referred to, and the codes we are using. Because it is possible that the shapefile includes more mainland constituencies than are found in the data (for example, if one constituency was unfortunate enough never to be included in the sample), we must add these on to our lookup list.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 geo$refno <- lookup$refno[match(as.character(geo$NAME),lookup$ShapeFileName)]\line
+\line
+### Index this in the same way as the continuous numbering\line
+geo$refno.num <- NA\line
+geo$refno.num <- const.lookup$refno.num[match(geo$refno,const.lookup$refno)]\line
+\line
+# Find additional constituencies not present in the lookup table\line
+extras <- geo$refno[is.na(geo$refno.num)]\line
+extras.num <- seq(from=(max(geo$refno.num,na.rm=T)+1),\line
+  by=1,\line
+  length.out=length(extras))\line
+extras <- data.frame(refno=extras,refno.num=extras.num)\line
+rm(extras.num)\line
+\line
+## Add to lookup table\line
+const.lookup <- rbind(const.lookup,extras)\line
+\line
+## And now repeat the match,\line
+## Overwriting refno in the process\line
+geo$refno <- const.lookup$refno.num[match(geo$refno,const.lookup$refno)]\line
+geo$refno.num <- NULL\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 We now transform the data into a slightly different R object (a Spatial Polygons data frame), taking care to preserve the order of the polygons.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 gpclibPermit()\line
+sp.const <- unionSpatialPolygons(geo, geo$refno)\line
+# Lose detail\line
+sp.const <- gSimplify(sp.const,100)\line
+\line
+dist.size <- as.data.frame(cbind(geo$HECTARES, geo$refno))\line
+colnames(dist.size) <- c("area","refno")\line
+dist.size<-dist.size[order(dist.size$refno),]\line
+rownames(dist.size)<-dist.size$refno\line
+\line
+area.spdf <- SpatialPolygonsDataFrame(sp.const, dist.size)\line
+\line
+## Reorder according to refno\line
+area.spdf <- area.spdf[ order(area.spdf$refno),]\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 We now create the adjacency matrices. Here, we must add the joins we mentioned previously.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 nb.districts <- poly2nb(area.spdf)\line
+\line
+## Join islands to the mainland\line
+for (i in 1:nrow(joins.to.add)) \{\line
+    a <- as.integer(const.lookup$refno.num[which(const.lookup$refno==joins.to.add[i,1])])\line
+    b <- as.integer(const.lookup$refno.num[which(const.lookup$refno==joins.to.add[i,2])])\line
+    nb.districts[[a]] <- c(nb.districts[[a]],b)\line
+    nb.districts[[a]] <-nb.districts[[a]][nb.districts[[a]]!=0]\line
+    nb.districts[[b]] <- c(nb.districts[[b]],a)\line
+    nb.districts[[b]] <-nb.districts[[b]][nb.districts[[b]]!=0]\line
+\}\line
+\line
+nb <- unlist(nb.districts)\line
+weight <- rep(1, times=length(nb)) \line
+num <- card(nb.districts)\line
+\line
+spdata <- list("nb", "weight", "num")\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Constituency-level information\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 We now recode information pertaining to the constituency level. In some instances, this involves mere renaming:\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 ### Some renaming\line
+for (i in c("private","female","married","owns","education","socgrd","age")) \{\line
+    names(aux)[names(aux) == i] <- paste0(i,"SL")\line
+\}\line
+\line
+# transform lagged vote shares for 3 main parties\line
+aux$lab10[is.na(aux$lab10)] <- 1\line
+aux$con10[is.na(aux$con10)] <- 1\line
+aux$ld10[is.na(aux$ld10)] <- 1\line
+aux$lab10logit <- car:::logit(aux$lab10,percents = TRUE)\line
+aux$con10logit <- car:::logit(aux$con10,percents = TRUE)\line
+aux$ld10logit <- car:::logit(aux$ld10,percents = TRUE)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 In other cases, there is more heavy lifting to do. Here, we construct constituency-level aggregates for age and education from our census weights.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 education <- aggregate(psw$weight,\line
+    list(refno=psw$parliamentary.constituency.2010,education=psw$education),\line
+    sum,na.rm=T)\line
+\line
+education <- ddply(education,.(refno),function(df)\{\line
+    data.frame(educlevel4plus = sum(df[df$education %in% c("Level 4/5"),"x"],na.rm = TRUE),\line
+    educnoqual = sum(df[df$education %in% c("No qualifications"),"x"],na.rm = TRUE))\line
+\})\line
+\line
+aux <- merge(aux, education, by = "refno", all.x=TRUE)\line
+\line
+ageGroup <- aggregate(psw$weight,\line
+    list(refno=psw$parliamentary.constituency.2010,ageGroup=psw$age0),\line
+    sum,na.rm=T)\line
+ageGroup <- ddply(ageGroup,.(refno),function(df)\{\line
+    data.frame(age16to24 = sum(df[df$ageGroup %in% c("16-19","20-24"),"x"],na.rm = TRUE),\line
+               age65plus = sum(df[df$ageGroup %in% c("65-74","75+"),"x"],na.rm = TRUE))\line
+\})\line
+\line
+aux <- merge(aux, ageGroup, by = "refno", all.x=TRUE)\line
+\line
+rm(education,ageGroup)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 For housekeeping purposes, we\u8217'll merge this auxiliary information with the BES data-frame, making sure only to include the relevant constituencies. Note how we scale the variables so that they are approximately normally distributed. Scaling variables is often a necessary step in MCMC sampling so as to improve sampling speed and avoid over/under-run errors.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 aux <- subset(aux,aux$refno %in% unique(const.lookup$refno))\line
+aux <- merge(aux,const.lookup,all.x=T,all.y=F)\line
+## Order aux seat correctly for later use\line
+aux <- aux[order(aux$refno.num),]\line
+## Scale variables\line
+vars.to.scale <- c("con10","lab10","ld10",\line
+    "log.earn","nonwhite","relig.christian",\line
+    "relig.refused","relig.none","relig.other",\line
+    "ageSL","privateSL","ownsSL","femaleSL",\line
+    "marriedSL","educationSL","socgrdSL",\line
+    "log.density","lab10logit","con10logit","ld10logit",\line
+    "educlevel4plus","educnoqual",\line
+    "age16to24","age65plus")\line
+\line
+for (v in vars.to.scale) \{\line
+    aux[,v] <- as.vector(scale(aux[,v]))\line
+\}\line
+besdat <- merge(besdat, aux, \line
+    by.x = "refno", by.y = "refno",\line
+    all.x = T,\line
+    suffixes = c(".x",""))\line
+\line
+constindex <- besdat$constindex\line
+besdat$region.num <- as.numeric(besdat$gor)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 The model\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Having recoded much of our data, we can now turn to the WinBUGS model. This model loops over the individual observations, pulling into the constituency-level effects, which are modelled respectively as a function of constituency-level covariates and a series of spatially correlated random effects. Here, we describe the model as an R language function, which is then written out to a file.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 model <- function() \{\line
+    for (i in 1:nObs) \{\line
+        y[i] ~ dbern(p[i])\line
+\line
+        logit(p[i]) <- alpha + \line
+            gamma[i] + \line
+            beta[constindex[i]] + \line
+            v[constindex[i]]\line
+\line
+        gamma[i] <- gamma.female*female[i] + gamma.rent*rent[i] + \line
+                    gamma.notMarried*notMarried[i] +\line
+                    gamma.private*private[i] + \line
+                    gamma.ageGroup[ageGroup[i]] + \line
+                    gamma.qualifications[qualifications[i]]\line
+    \}\line
+\line
+    gamma.female ~ dnorm(0, .0001)\line
+    gamma.rent ~ dnorm(0, .0001)\line
+    gamma.notMarried ~ dnorm(0, .0001)\line
+    gamma.private ~ dnorm(0, .0001)\line
+\line
+    for(k in 1:nAgeGroups)\{\line
+       gamma.ageGroup[k] ~ dnorm(0, tau.ageGroup)\line
+      \}\line
+    for(k in 1:nQualifications)\{\line
+       gamma.qualifications[k] ~ dnorm(0, tau.qualifications)\line
+      \}\line
+      \line
+\line
+    tau.ageGroup  <- pow(sigma.ageGroup, -2)\line
+    sigma.ageGroup ~ dunif(0, 2)\line
+    tau.qualifications  <- pow(sigma.qualifications, -2)\line
+    sigma.qualifications ~ dunif(0, 2)\line
+\line
+    for (j in 1:nConst) \{\line
+        beta[j] <- beta.density * density[j]  + \line
+                    beta.nonwhite * nonwhite[j]  +\line
+                    beta.earnings * earnings[j] + \line
+                    beta.religchristian * relig.christian[j] +\line
+                    beta.religother * relig.other[j] +\line
+                    beta.religrefuse * relig.refuse[j] +\line
+                    beta.femaleSL * femaleSL[j] +\line
+                    beta.marriedSL * marriedSL[j] +\line
+                    beta.privateSL * privateSL[j] +\line
+                    beta.ownsSL * ownsSL[j] +\line
+                    beta.socgrdSL * socgrdSL[j] +\line
+                    beta.age16to24 * age16to24[j] + beta.age65plus * age65plus[j] +                     \line
+                    beta.educnoqual * educnoqual[j] + \line
+                    beta.educlevel4plus * educlevel4plus[j] +\line
+                    beta.con10 * con10[j] + \line
+                    beta.lab10 * lab10[j] + \line
+                    beta.ld10 * ld10[j] +\line
+                    beta.region[region[j]] + \line
+                    u[j]\line
+        u[j] ~ dnorm(0, tauu)\line
+    \}\line
+\line
+    for(k in 1:nRegion)\{\line
+        beta.region[k] ~ dnorm(0, tau.region)\line
+    \}\line
+\line
+    v[1:nConst] ~ car.normal(nb[], weight[], num[], tauv)\line
+    alpha ~ dflat()\line
+    beta.density ~ dflat()\line
+    beta.nonwhite ~ dflat()\line
+    beta.earnings ~ dflat()\line
+    beta.religchristian ~ dflat()\line
+    beta.religother ~ dflat()\line
+    beta.religrefuse ~ dflat()\line
+    beta.femaleSL ~ dflat()\line
+    beta.marriedSL ~ dflat()\line
+    beta.privateSL  ~ dflat()\line
+    beta.ownsSL  ~ dflat()\line
+    beta.socgrdSL ~ dflat()\line
+    beta.age16to24 ~ dflat()\line
+    beta.age65plus ~ dflat()\line
+    beta.educnoqual ~ dflat()\line
+    beta.educlevel4plus ~ dflat()\line
+    beta.con10 ~ dflat()\line
+    beta.lab10 ~ dflat()\line
+    beta.ld10 ~ dflat()\line
+\line
+    tau.region <- pow(sigma.region,-2)\line
+    sigma.region ~ dunif(0,2)\line
+\line
+    tauu <- pow(sigmasquv*sigmamix, -1)\line
+    tauv <- pow(sigmasquv*(1-sigmamix), -1)\line
+    sigmasquv <- pow(sigmauv,2)\line
+    sigmauv ~ dunif(0, 2)\line
+    sigmamix ~  dbeta(1,1)\line
+\}\line
+\line
+write.model(model, "model.bug")\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Unfortunately, passing data to WinBUGS can be quite tedious. The following chunk of code sets up the various variables, which are then passed by name in the string at the end of the code chunk.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 # Prepare data for WinBugs\line
+y <- as.numeric(besdat$y)\line
+nObs <- as.vector(length(y))\line
+nConst <- as.numeric(as.vector(max(const.lookup$refno.num)))\line
+constindex <- as.vector(constindex)\line
+\line
+female <- as.numeric(as.numeric(besdat$gender == "Female"))\line
+notMarried <- as.numeric(besdat$maritalStatus == "Single (never married), separated, divorced or widowed")\line
+rent <- as.numeric(besdat$housing == "Rents")\line
+private <- as.numeric(besdat$privateSector == "Private")\line
+\line
+nAgeGroups <- length(unique(besdat$ageGroup))\line
+ageGroup <- as.numeric(besdat$ageGroup)\line
+nsocialGrades <- length(unique(besdat$socialGrade))\line
+socialGrade <- as.numeric(besdat$socialGrade)\line
+nQualifications <- length(unique(besdat$qualifications))\line
+qualifications <- as.numeric(besdat$qualifications)\line
+\line
+## Constituency level stuff\line
+density <- as.vector(aux$log.density)\line
+earnings <- as.vector(aux$log.earn)\line
+nonwhite <- as.vector(aux$nonwhite)\line
+region <- as.numeric(aux$region)\line
+nRegion <- length(unique(region))\line
+relig.christian <- as.vector(aux$relig.christian)\line
+relig.other <- as.vector(aux$relig.other)\line
+relig.refuse <- as.vector(aux$relig.refused)\line
+femaleSL <- as.vector(aux$femaleSL)\line
+marriedSL <- as.vector(aux$marriedSL)\line
+privateSL <- as.vector(aux$privateSL)\line
+ownsSL <- as.vector(aux$ownsSL)\line
+socgrdSL <- as.vector(aux$socgrdSL)\line
+\line
+age16to24 <- as.vector(aux$age16to24)\line
+age65plus <- as.vector(aux$age65plus)\line
+educnoqual <- as.vector(aux$educnoqual)\line
+educlevel4plus <- as.vector(aux$educlevel4plus)\line
+\line
+lab10logit <- as.vector(aux$lab10logit)\line
+con10logit <- as.vector(aux$con10logit)\line
+ld10logit <- as.vector(aux$ld10logit)\line
+lab10 <- as.vector(as.numeric(aux$lab10logit))\line
+con10 <- as.vector(as.numeric(aux$con10logit))\line
+ld10 <- as.vector(as.numeric(aux$ld10logit))\line
+\line
+\line
+bugsdata <- list("nObs","female","y","rent","notMarried","private",\line
+            "ageGroup","nAgeGroups"\line
+            ,"nQualifications","qualifications"\line
+            ,"nConst"\line
+            ,"density"\line
+            ,"nonwhite","earnings"\line
+            ,"constindex"\line
+            ,"relig.christian","relig.other","relig.refuse"\line
+            ,"femaleSL", "marriedSL", "privateSL"\line
+            ,"ownsSL", "socgrdSL"\line
+            ,"age16to24", "age65plus"\line
+            ,"educnoqual","educlevel4plus"\line
+            ,"region","nRegion"\line
+            ,"con10","lab10","ld10"\line
+        )\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 WinBUGS will occasionally throw a hissy fit if its own best guess at initial values causes improbable results. For this reason, it\u8217's best to pass WinBUGS an initialization function. Again, this can be unwieldy, hence the tongue-in-cheek name of the function, {\f1 tiny.inits}. We\u8217'll also use this opportunity to set a random seed to ensure reproducibility.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 set.seed(2511)\line
+tiny.inits <- function() \{\line
+            alpha <- rnorm(1,0,1)\line
+            beta.density <- rnorm(1,0,1)\line
+            beta.religrefuse <- rnorm(1,0,1)\line
+            beta.religother <- rnorm(1,0,1)\line
+            beta.religchristian <- rnorm(1,0,1)\line
+            beta.nonwhite <- rnorm(1,0,1)\line
+            beta.earnings <- rnorm(1,0,1)\line
+            beta.femaleSL  <- rnorm(1,0,1)\line
+            beta.marriedSL  <- rnorm(1,0,1)\line
+            beta.privateSL   <- rnorm(1,0,1)\line
+            beta.ownsSL   <- rnorm(1,0,1)\line
+            beta.socgrdSL  <- rnorm(1,0,1)\line
+            beta.age16to24  <- rnorm(1,0,1)\line
+            beta.age65plus  <- rnorm(1,0,1)\line
+            beta.educnoqual  <- rnorm(1,0,1)            \line
+            beta.educlevel4plus  <- rnorm(1,0,1)            \line
+            beta.con10  <- rnorm(1,0,1)            \line
+            beta.lab10  <- rnorm(1,0,1)            \line
+            beta.ld10  <- rnorm(1,0,1)            \line
+\line
+            gamma.female <- rnorm(1,0,1)\line
+            gamma.rent <- rnorm(1,0,1)\line
+            gamma.notMarried <- rnorm(1,0,1)\line
+            gamma.private <- rnorm(1,0,1)\line
+            gamma.ageGroup <- rnorm(nAgeGroups,0,1)\line
+            gamma.qualifications <- rnorm(nQualifications,0,1)\line
+            u = rep(0,nConst)\line
+            v = rep(0,nConst)\line
+\line
+            return(list(alpha=alpha,beta.density=beta.density,\line
+                        beta.religrefuse=beta.religrefuse,\line
+                        beta.religother=beta.religother,\line
+                        beta.religchristian=beta.religchristian,\line
+                        beta.nonwhite=beta.nonwhite,beta.earnings=beta.earnings,\line
+                        beta.femaleSL=beta.femaleSL, beta.marriedSL=beta.marriedSL,\line
+                        beta.privateSL=beta.privateSL, beta.ownsSL=beta.ownsSL,\line
+                        beta.socgrdSL=beta.socgrdSL,\line
+                        beta.age16to24=beta.age16to24,\line
+                        beta.age65plus=beta.age65plus,\line
+                        beta.educnoqual=beta.educnoqual,\line
+                        beta.educlevel4plus=beta.educlevel4plus,\line
+                        beta.con10=beta.con10,\line
+                        beta.lab10=beta.lab10,\line
+                        beta.ld10=beta.ld10,\line
+                        gamma.female=gamma.female,\line
+                        gamma.rent=gamma.rent,\line
+                        gamma.notMarried= gamma.notMarried,\line
+                        gamma.private=gamma.private,\line
+                        gamma.ageGroup=gamma.ageGroup\line
+                        ,gamma.qualifications=gamma.qualifications\line
+                        ,u=u,v=v))\line
+        \}\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 Estimation\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 We\u8217've now re-coded all our data, made it play nicely together, and specified our model. There are two steps left \u8211- estimation of the model, and post-stratification. Estimation can be quite computationally intensive \u8211- and post-stratification quite memory intensive. For these reasons, we\u8217're going to set the number of MCMC samples to a small number.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 ### You could use these\line
+my.iter <- 50000\line
+my.burnin <- 10000\line
+my.thin <- 100\line
+\line
+### But we'll use these\line
+my.iter <- 200\line
+my.burnin <- 100\line
+my.thin <- 1\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Here comes the estimation! You will need to change the Bugs directory to match its location on your system.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 my.bugs.dir <- "/home/chris/.wine/drive_c/Program Files (x86)/WinBUGS14"\line
+\line
+model.sim <- bugs(data=c(bugsdata, spdata), \line
+        inits = tiny.inits,\line
+     model.file="model.bug",\line
+      parameters.to.save=c("alpha",\line
+        "gamma.female",\line
+        "gamma.rent",\line
+        "gamma.notMarried",\line
+        "gamma.private",\line
+        "gamma.ageGroup"\line
+        ,"gamma.qualifications"\line
+        ,"beta","v"\line
+        ,"sigmauv", "sigmamix", "sigma.region"\line
+        ,"beta.density"\line
+        ,"beta.nonwhite","beta.earnings"\line
+        ,"beta.religrefuse","beta.religother", "beta.religchristian"\line
+        ,"beta.region"\line
+        ,"beta.femaleSL","beta.marriedSL","beta.privateSL","beta.ownsSL","beta.socgrdSL"\line
+        ,"beta.age16to24","beta.age65plus","beta.educnoqual","beta.educlevel4plus"\line
+        ,"beta.con10","beta.lab10","beta.ld10"\line
+        ), \line
+      n.chains=3,\line
+      n.iter=my.iter, \line
+      n.burnin=my.burnin, \line
+      n.thin=my.thin, \line
+      debug=FALSE,\line
+      bugs.directory=my.bugs.dir) \par}
+{\pard \ql \f0 \sa180 \li0 \fi0 We probably want to check whether these Markov Chains have converged:\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 summary(model.sim$summary[,"Rhat"])\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Min. 1st Qu. Median Mean 3rd Qu. Max. 0.997 1.030 1.070 1.140 1.120 9.430\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 Post-stratification\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Assuming that convergence has been achieved, we now need to post-stratify the results. This will involve loading in the post-stratification weights, and doing some book-keeping on the outcome of the WinBUGS model.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 load("./canonical_weights_2001SARS_2011margins_Robj.RData")\line
+\line
+PSW <- as.data.frame.table(psw, rownames = NULL, responseName = "N")\line
+names(PSW) <- c("refno", "gender", "ageGroup", "qualifications",\line
+                "maritalStatus", "housing", "socgrd", "privateSector", "N")\line
+\line
+### Social grade not used here\line
+PSW$socgrd <- NULL\line
+# assign re-formatted PSW as census data\line
+census <- PSW\line
+rm(PSW, psw)\line
+\line
+## create census model matrix\line
+census.mat <- model.matrix(~ 1 + I(gender=="Female") + I(housing=="Rents") + \line
+    I(maritalStatus=="Single (never married), separated, divorced or widowed") + \line
+    I(privateSector=="Private") +\line
+        ageGroup + qualifications,\line
+        contrasts.arg = list(ageGroup = contrasts(census$ageGroup, contrasts=F),\line
+            qualifications = contrasts(census$qualifications, contrasts=F)\line
+    ),\line
+    data = census)\line
+\line
+## Constituency effects\line
+constituency.component <- model.sim$mean$beta + model.sim$mean$v\line
+constituency.component <- data.frame(constout = constituency.component, \line
+    refno.num = 1:nConst)\line
+constituency.component <- merge(constituency.component,const.lookup)\line
+constituency.component$refno.num <- NULL\line
+\line
+## Rearrange coefs\line
+the.coefs <- c(model.sim$mean$alpha,\line
+        model.sim$mean$gamma.female,\line
+        model.sim$mean$gamma.rent, \line
+        model.sim$mean$gamma.notMarried, \line
+        model.sim$mean$gamma.private,\line
+        model.sim$mean$gamma.ageGroup\line
+        ,model.sim$mean$gamma.qualifications\line
+        )\line
+\line
+    \line
+### Get product\line
+\line
+census$out <-  rowSums(census.mat %*% the.coefs)\line
+\line
+### Add the constituency effects\line
+census <- merge(census,constituency.component,\line
+        by = "refno",\line
+        all=T)\line
+census$cell.pred <- inv.logit(census$out + census$constout)\line
+\line
+## Aggregate to constituency yhat\line
+meanpreds <- census$cell.pred * census$N\line
+meanpreds <- aggregate(meanpreds,list(refno=census$refno),sum,na.rm=T)\line
+names(meanpreds)[2] <- "yhat"\line
+\line
+meanpreds$yhat <- meanpreds$yhat*100\line
+\line
+meanpreds <- merge(meanpreds, lookup, by = "refno", \line
+    all = TRUE)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 We should now have our results in {\f1 meanpreds}, which can be saved, or merged with other data, or enter into another model, or\u8230?\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 meanpreds[1:3,c("refno","YouGovName","yhat")]\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 refno YouGovName yhat 1 1 Aberavon 52.90 2 10 Alyn and Deeside 61.65 3 100 Bristol North West 44.23\par}
+}

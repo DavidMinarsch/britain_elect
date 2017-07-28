@@ -1,0 +1,1010 @@
+
+\documentclass[12pt,twoside]{article}
+\usepackage[noae]{Sweave}
+\usepackage{caxetexFree}
+\usepackage{lipsum}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\titleformat{\paragraph}[runin]{\normalfont\normalsize\textsb}{\theparagraph}{1em}{}
+\newcommand{\myTitle}{Generating constituency-level opinion, with code}
+\title{\myTitle}
+\author{HLV}
+\date{November 2014}
+\newcommand{\chaptermark}
+
+\usepackage{graphicx}
+% -- We will generate all images so they have a width \maxwidth. This means
+% -- that they will get their normal width if they fit onto the page, but
+% -- are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+\else\Gin@nat@width\fi}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
+%% From https://github.com/minrk/ipython/commit/325e76d80861d5cec65b08396c39c6316cde0912
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    
+    \DefineShortVerb[commandchars=\\\{\}]{\|}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\fancyhead{} % clear all header fields
+\fancyhead[CE]{\rightmark}
+\fancyhead[CO]{\leftmark}
+\fancyfoot{} % clear all footer fields
+\fancyfootoffset[RO]{-0.25in}
+\fancyfootoffset[LE]{-0.25in}
+\fancyfootoffset[RE]{-0.25in}
+\fancyfootoffset[LO]{-0.25in}
+\fancyfoot[RO]{\thepage}
+\fancyfoot[LE]{\thepage}
+\fancyfoot[RE]{\texttt{\jobname{}.tex}, \textsf{revised \today}}
+\fancyfoot[LO]{\texttt{\jobname{}.tex}, \textsf{revised \today}}
+
+\renewcommand{\headrulewidth}{0pt}  %1.4
+
+\setlength{\footskip}{33pt}
+
+% Create headerless version for "plain" pages, 
+% e.g., page 1 of a paper
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\fancyfootoffset[RO]{-0.25in}
+\fancyfootoffset[LE]{-0.25in}
+\fancyfootoffset[RE]{-0.25in}
+\fancyfootoffset[LO]{-0.25in}
+\fancyfoot[RO]{\thepage}
+\fancyfoot[LE]{\thepage}
+\fancyfoot[RE]{\texttt{\jobname{}.tex}, \textsf{revised \today}}
+\fancyfoot[LO]{\texttt{\jobname{}.tex}, \textsf{revised \today}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+
+\renewcommand{\leftmark}{\textsc{\caps{\author{HLV}}}~~\(\cdot\)~~\emph{\textsb{%
+\myTitle{}%
+}}}
+ \renewcommand{\rightmark}{\textsc{\caps{}}~~\(\cdot\)~~\emph{\textsb{%
+\myTitle{}%
+}}}
+
+
+
+\begin{document}
+\maketitle
+
+\section{Introduction}\label{introduction}
+
+This document describes code used to generate estimates of opinion at
+the constituency level. It is distributed as part of a zip archive that
+contains some of the files needed to generate these estimates. The
+document is built with Knitr, an example of literate programming, such
+that the R source code used to generate these estimates is embedded
+within the document itself. This R code can be found at
+\texttt{replication\_howto.R}.
+
+\section{If life gives you a
+chainsaw\ldots{}}\label{if-life-gives-you-a-chainsaw}
+
+We've written this document so that other researchers can estimate
+opinion at the constituency level without investing substantial effort
+in sourcing, reconciling and recoding census and survey data. We've used
+this code (or versions of it) to estimate constituency-level opinion on
+Europe, on immigration, on taxation, on crime, and on other issues.
+
+If you want to understand this code, you should read the accompanying
+\href{http://constituencyopinion.org.uk/wp-content/uploads/2014/10/constituency-estimates-technical-report.pdf}{technical
+report}. The technical report describes what we're doing: the code below
+describes how we do it.
+
+The technical report gives details on how individual level predictors
+and post-stratification can be combined with spatial data and
+constituency-level predictors to produce estimates of opinions. For the
+``political'' opinions we've studied so far, demographic predictors make
+sense, and explain a reasonable proportion of the individual level
+variance in the relevant opinion.
+
+However, there are some circumstances where we would caution against
+using this code to estimate opinion at the constituency level.
+
+First, don't use this code if the opinion you're interested in is not
+obviously related to individual respondents' occupation or education. It
+would be wrong, for example, to estimate constituency level opinion
+concerning
+\href{https://yougov.co.uk/news/2012/05/08/britains-favourite-shakespeare/}{favourite
+Shakespeare plays}, for example.
+
+Second, don't use this code if the opinion you're interested in is, by
+its very nature, local. When we estimate responses towards Europe (as we
+do in this document), there is a common stimulus to which people are
+reacting. Our modelling exploits commonalities in responses amongst
+people who live in different places but who are alike in their
+characteristics. If, however, we were to estimate opinion concerning
+satisfaction with local councils, there would be no such commonality.
+
+\section{Dependencies}\label{dependencies}
+
+Estimating constituency level opinion is a complex endeavour, which
+depends upon several pieces of freely available software. We begin by
+setting out the software dependencies you need, before moving on to
+discuss the data dependencies.
+
+\subsection{Software dependencies}\label{software-dependencies}
+
+First, you'll need a recent version of
+\href{http://www.r-project.org/}{R}. This document was created using the
+following R version:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{R.Version}\NormalTok{()$version.string}
+\end{Highlighting}
+\end{Shaded}
+
+{[}1{]} ``R version 3.1.1 (2014-07-10)''
+
+and the following random seed:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2511}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Second, you'll need a version of
+\href{http://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/}{WinBUGS}.
+You need WinBUGS rather than an other Gibbs sampler (like, say,
+\href{http://mcmc-jags.sourceforge.net/}{JAGS}) because, to the best of
+our knowledge, only WinBUGS can draw from a conditional autoregressive
+normal distribution. If you're not running a Windows computer, you
+should know that WinBUGS can be run through WINE on Linux, and through
+Parallels on Macs.
+
+Third, you'll need a number of R libraries. This document requires the
+following libraries:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(foreign)}
+\KeywordTok{library}\NormalTok{(memisc)}
+\KeywordTok{library}\NormalTok{(car)}
+\KeywordTok{library}\NormalTok{(maptools)}
+\KeywordTok{library}\NormalTok{(spdep)}
+\KeywordTok{library}\NormalTok{(R2WinBUGS)}
+\KeywordTok{library}\NormalTok{(arm)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(plyr)}
+\KeywordTok{library}\NormalTok{(rgeos)}
+\end{Highlighting}
+\end{Shaded}
+
+Not all of these libraries are strictly necessary to generate
+constituency-level estimates. Some -- like \texttt{car} -- are used only
+for helping in recoding variables.
+
+\subsection{Data dependencies}\label{data-dependencies}
+
+Moving on to the data dependencies, you'll first need a data-set with
+responses from several thousand individuals. This data-set must contain
+information on (a) an opinion of interest, (b) the constituency of each
+respondent; and (c) additional individual-level variables which can be
+matched with the information collected by the Census. In this document,
+we use Wave 2 of the British Election Study 2015. We cannot redistribute
+this data, so you will need to download it and change the
+\texttt{bespath} variable to read the data into R. Additionally, we're
+going to drop three-quarters of the observations to reduce the
+computational burden.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bespath <-}\StringTok{ "~/Dropbox/constituency-estimates-data/bes-2015/BES2015_W2_Panel_v2.0.sav"}
+\NormalTok{besdat <-}\StringTok{ }\KeywordTok{read.spss}\NormalTok{(bespath, }
+    \DataTypeTok{to.data.frame=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{nrow}\NormalTok{(besdat)}
+\NormalTok{besdat <-}\StringTok{ }\NormalTok{besdat[}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\NormalTok{:}\KeywordTok{nrow}\NormalTok{(besdat),}\KeywordTok{nrow}\NormalTok{(besdat)/}\DecValTok{4}\NormalTok{),]}
+\KeywordTok{nrow}\NormalTok{(besdat)}
+\end{Highlighting}
+\end{Shaded}
+
+Second, you'll need some constituency-level variables and the necessary
+look-up codes to link these variables to the BES data. These are
+contained in the zipped folder.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{auxpath <-}\StringTok{ "./canonical_seatvars_2011census.csv"}
+\NormalTok{lookuppath <-}\StringTok{ "./name2pa.csv"}
+\NormalTok{aux <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(auxpath)}
+\NormalTok{lookup <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(lookuppath)}
+\end{Highlighting}
+\end{Shaded}
+
+Third, you'll need some post-stratification weights. The weights we
+currently use are transitional weights. We use the sample of anonymised
+records (SAR) from the 2001 census, and rake this to the marginal
+distributions from the 2011 census. Once the SAR from the 2011 census is
+available, we can use information from the 2011 census exclusively.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pswpath <-}\StringTok{ "canonical_weights_2001SARS_2011margins_flatfile.csv"}
+\NormalTok{psw <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(pswpath)}
+\end{Highlighting}
+\end{Shaded}
+
+Fourth, you'll need some shapefiles giving details of the boundaries of
+the parliamentary constituencies used in Great Britain. Once again, we
+cannot redistribute this data, as it is held by the Ordnance Survey.
+Additionally, the Boundary Line data file is quite large. You will need
+to download this data file yourself, and change the variable
+\texttt{geopath} in order to read this into R.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{geopath <-}\StringTok{ "~/Dropbox/constituency-estimates-data/westminster_const_region.shp"}
+\NormalTok{geo <-}\StringTok{ }\KeywordTok{readShapePoly}\NormalTok{(geopath)}
+\end{Highlighting}
+\end{Shaded}
+
+You will also need some manual additions -- instances of constituencies
+which are either genuine islands, or which appear such because of faults
+in the shapefile.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{joinpath <-}\StringTok{ "./joins_to_add.csv"}
+\NormalTok{joins.to.add <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(joinpath, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Recoding}\label{recoding}
+
+Unfortunately, a lot of work goes into recoding variables in order to
+make sure that the different sources of data play together nicely. We
+start with the BES data, before moving on to the geodata.
+
+\subsection{BES re-codes}\label{bes-re-codes}
+
+\subsubsection{Dependent variable}\label{dependent-variable}
+
+We start with our dependent variable -- the opinion of interest. Here,
+we're going to examine how respondents would vote in a hypothetical
+referendum on EU membership. This is stored in the BES as a variable
+called \texttt{euRefVoteW2}. The possible values of this variable are as
+follows:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  1 (Leave the EU)
+\item
+  0 (Stay in the EU)
+\item
+  2 (I would not vote)
+\item
+  9999 (Don't know)
+\end{itemize}
+
+We will recode these values into a new variable called \texttt{y} (a
+more descriptive variable name would normally be preferable, but by
+calling the variable y we make this code more reusable). This variable
+will have value 1 if the respondent would vote to leave the EU.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{besdat$y <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.numeric}\NormalTok{(besdat$euRefVoteW2) ==}\StringTok{ }\DecValTok{2}\NormalTok{)}
+\NormalTok{besdat$y[}\KeywordTok{as.numeric}\NormalTok{(besdat$euRefVoteW2) >}\StringTok{ }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\OtherTok{NA}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Individual-level
+variables}\label{individual-level-variables}
+
+We now embark on a lengthy series of recodes designed to match the BES
+data with the Census weights. This involves recoding variables for age,
+gender, marital status, housing tenure, highest level of education, and
+private sector occupation. If any of these recoding operations are
+unclear, we recommend consulting the BES codebook.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Gender}
+\NormalTok{besdat$gender <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(besdat$gender,}\DataTypeTok{exclude=}\KeywordTok{c}\NormalTok{(}\StringTok{"Skipped"}\NormalTok{,}\StringTok{"Not Asked"}\NormalTok{))}
+
+\CommentTok{# Age}
+\NormalTok{besdat$ageGroup <-}\StringTok{ }\DecValTok{8} \NormalTok{-}\StringTok{ }\NormalTok{((besdat$Age <=}\StringTok{ }\DecValTok{19}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\NormalTok{(besdat$Age <=}\StringTok{ }\DecValTok{24}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\NormalTok{(besdat$Age <=}\StringTok{ }\DecValTok{29}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\NormalTok{(besdat$Age <=}\StringTok{ }\DecValTok{44}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\NormalTok{(besdat$Age <=}\StringTok{ }\DecValTok{59}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\NormalTok{(besdat$Age <=}\StringTok{ }\DecValTok{64}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\NormalTok{(besdat$Age <=}\StringTok{ }\DecValTok{74}\NormalTok{))}
+\NormalTok{besdat$ageGroup <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(besdat$ageGroup,}
+    \DataTypeTok{labels=}\KeywordTok{c}\NormalTok{(}\StringTok{"16-19"}\NormalTok{, }\StringTok{"20-24"}\NormalTok{,}\StringTok{"25-29"}\NormalTok{,}\StringTok{"30-44"}\NormalTok{,}\StringTok{"45-59"}\NormalTok{,}\StringTok{"60-64"}\NormalTok{,}\StringTok{"65-74"}\NormalTok{,}\StringTok{"75+"}\NormalTok{))}
+\NormalTok{besdat$ageGroup <-}\StringTok{ }\KeywordTok{replace}\NormalTok{(besdat$ageGroup,}
+    \KeywordTok{is.na}\NormalTok{(besdat$ageGroup),}
+    \StringTok{"45-59"}\NormalTok{) }\CommentTok{# assign NAs to most frequent category}
+
+\CommentTok{# Marital status}
+\NormalTok{besdat$maritalStatus <-}\StringTok{ }\NormalTok{car:::}\KeywordTok{recode}\NormalTok{(besdat$marital,}
+    \StringTok{"c('Married')='Married or re-married';}
+\StringTok{    c('Skipped','Not Asked')=NA;}
+\StringTok{    else='Single (never married), separated, divorced or widowed'"}\NormalTok{)}
+
+\NormalTok{## Housing tenure}
+\NormalTok{besdat$housing <-}\StringTok{ }\NormalTok{car:::}\KeywordTok{recode}\NormalTok{(besdat$housing,}
+    \StringTok{"c('Own the leasehold/freehold outright',}
+\StringTok{        'Buying leasehold/freehold on a mortgage')='Owns';}
+\StringTok{    c('Rented from local authority',}
+\StringTok{        'Rented from private landlord',}
+\StringTok{        'It belongs to a Housing Association')='Rents';}
+\StringTok{    else = 'Rents'"}\NormalTok{)}
+
+\NormalTok{## Education}
+\NormalTok{besdat$qualifications <-}\StringTok{ }\NormalTok{car:::}\KeywordTok{recode}\NormalTok{(besdat$education,}
+    \StringTok{"'No formal qualifications'='No qualifications';}
+\StringTok{    'Youth training certificate/skillseekers'='Level 2';}
+\StringTok{    'Recognised trade apprenticeship completed'='Level 2';}
+\StringTok{    'Clerical and commercial'='Level 1';}
+\StringTok{    'City and Guild certificate'='Level 1';}
+\StringTok{    'City and Guild certificate - advanced'='Level 2';}
+\StringTok{    'onc'='Level 2';}
+\StringTok{    'CSE grades 2-5'='Level 1';}
+\StringTok{    'CSE grade 1, GCE O level, GCSE, School Certificate'='Level 2';}
+\StringTok{    'Scottish Ordinary/ Lower Certificate'='Level 2';}
+\StringTok{    'GCE A level or Higher Certificate'='Level 3';}
+\StringTok{    'Scottish Higher Certificate'='Level 3';}
+\StringTok{    'Nursing qualification (eg SEN, SRN, SCM, RGN)'='Level 4/5';}
+\StringTok{    'Teaching qualification (not degree)'='Level 4/5';}
+\StringTok{    'University diploma'='Level 4/5';}
+\StringTok{    'University or CNAA first degree (eg BA, B.Sc, B.Ed)'='Level 4/5';}
+\StringTok{    'University or CNAA higher degree (eg M.Sc, Ph.D)'='Level 4/5';}
+\StringTok{    'Other technical, professional or higher qualification'='Other';else = NA"}\NormalTok{)}
+
+\NormalTok{## Private sector occupation}
+\NormalTok{besdat$privateSector <-}\StringTok{ }\NormalTok{car:::}\KeywordTok{recode}\NormalTok{(besdat$work_type,}
+    \StringTok{"c(1,2)='Private';c(8,9)=NA;else='Public'"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Having recoded these variables, we now drop all rows in the data without
+a response to the question on EU exit.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{besdat <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(besdat,!}\KeywordTok{is.na}\NormalTok{(besdat$y))}
+\end{Highlighting}
+\end{Shaded}
+
+We also drop all rows in the data with missing values for any of our
+individual level variables. Normally, such a complete-cases strategy
+would be ill-advisable, but since these individual-level variables are
+fairly common, the rates of missingness are low, and we can concentrate
+on complete cases without too much loss of data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tokeepvars <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"gender"}\NormalTok{,}\StringTok{"ageGroup"}\NormalTok{,}\StringTok{"maritalStatus"}\NormalTok{,}
+    \StringTok{"housing"}\NormalTok{,}\StringTok{"qualifications"}\NormalTok{,}\StringTok{"privateSector"}\NormalTok{)}
+\NormalTok{tokeep <-}\StringTok{ }\KeywordTok{complete.cases}\NormalTok{(besdat[,tokeepvars])}
+\NormalTok{besdat <-}\StringTok{ }\NormalTok{besdat[tokeep,]}
+\KeywordTok{rm}\NormalTok{(tokeep, tokeepvars)}
+\end{Highlighting}
+\end{Shaded}
+
+Finally, we make sure that the reference codes for the constituency
+match across data-sets. Because we will eventually need to refer to the
+constituencies in WinBUGS, we create a continuously numbered version of
+the constituency reference code. This differs from the Press Association
+reference codes, which include Northern Irish constituencies which we
+omit.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{besdat$refno <-}\StringTok{ }\NormalTok{besdat$pconrefno}
+\NormalTok{besdat <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(besdat,lookup,}
+    \DataTypeTok{by=}\StringTok{"refno"}\NormalTok{,}
+    \DataTypeTok{all.x=}\NormalTok{T,}\DataTypeTok{all.y=}\NormalTok{F)}
+\NormalTok{besdat <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(besdat, !}\KeywordTok{is.na}\NormalTok{(besdat$refno))}
+
+\CommentTok{# Get constituency identifier}
+\CommentTok{# PA numbers are non-consecutive}
+\CommentTok{# So make sure we take number of levels from the factor}
+\NormalTok{besdat$constindex <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{factor}\NormalTok{(besdat$refno))}
+\NormalTok{constindex <-}\StringTok{ }\NormalTok{besdat$constindex}
+
+\NormalTok{## Create look-up table}
+\NormalTok{const.lookup <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{refno=}\KeywordTok{unique}\NormalTok{(besdat$refno),}
+  \DataTypeTok{refno.num =} \KeywordTok{unique}\NormalTok{(constindex))}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Geo-data recodes}\label{geo-data-recodes}
+
+We begin by ensuring a match between the codes by which the individual
+polygons in the shapefile are referred to, and the codes we are using.
+Because it is possible that the shapefile includes more mainland
+constituencies than are found in the data (for example, if one
+constituency was unfortunate enough never to be included in the sample),
+we must add these on to our lookup list.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{geo$refno <-}\StringTok{ }\NormalTok{lookup$refno[}\KeywordTok{match}\NormalTok{(}\KeywordTok{as.character}\NormalTok{(geo$NAME),lookup$ShapeFileName)]}
+
+\NormalTok{### Index this in the same way as the continuous numbering}
+\NormalTok{geo$refno.num <-}\StringTok{ }\OtherTok{NA}
+\NormalTok{geo$refno.num <-}\StringTok{ }\NormalTok{const.lookup$refno.num[}\KeywordTok{match}\NormalTok{(geo$refno,const.lookup$refno)]}
+
+\CommentTok{# Find additional constituencies not present in the lookup table}
+\NormalTok{extras <-}\StringTok{ }\NormalTok{geo$refno[}\KeywordTok{is.na}\NormalTok{(geo$refno.num)]}
+\NormalTok{extras.num <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from=}\NormalTok{(}\KeywordTok{max}\NormalTok{(geo$refno.num,}\DataTypeTok{na.rm=}\NormalTok{T)+}\DecValTok{1}\NormalTok{),}
+  \DataTypeTok{by=}\DecValTok{1}\NormalTok{,}
+  \DataTypeTok{length.out=}\KeywordTok{length}\NormalTok{(extras))}
+\NormalTok{extras <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{refno=}\NormalTok{extras,}\DataTypeTok{refno.num=}\NormalTok{extras.num)}
+\KeywordTok{rm}\NormalTok{(extras.num)}
+
+\NormalTok{## Add to lookup table}
+\NormalTok{const.lookup <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(const.lookup,extras)}
+
+\NormalTok{## And now repeat the match,}
+\NormalTok{## Overwriting refno in the process}
+\NormalTok{geo$refno <-}\StringTok{ }\NormalTok{const.lookup$refno.num[}\KeywordTok{match}\NormalTok{(geo$refno,const.lookup$refno)]}
+\NormalTok{geo$refno.num <-}\StringTok{ }\OtherTok{NULL}
+\end{Highlighting}
+\end{Shaded}
+
+We now transform the data into a slightly different R object (a Spatial
+Polygons data frame), taking care to preserve the order of the polygons.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{gpclibPermit}\NormalTok{()}
+\NormalTok{sp.const <-}\StringTok{ }\KeywordTok{unionSpatialPolygons}\NormalTok{(geo, geo$refno)}
+\CommentTok{# Lose detail}
+\NormalTok{sp.const <-}\StringTok{ }\KeywordTok{gSimplify}\NormalTok{(sp.const,}\DecValTok{100}\NormalTok{)}
+
+\NormalTok{dist.size <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(geo$HECTARES, geo$refno))}
+\KeywordTok{colnames}\NormalTok{(dist.size) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"area"}\NormalTok{,}\StringTok{"refno"}\NormalTok{)}
+\NormalTok{dist.size<-dist.size[}\KeywordTok{order}\NormalTok{(dist.size$refno),]}
+\KeywordTok{rownames}\NormalTok{(dist.size)<-dist.size$refno}
+
+\NormalTok{area.spdf <-}\StringTok{ }\KeywordTok{SpatialPolygonsDataFrame}\NormalTok{(sp.const, dist.size)}
+
+\NormalTok{## Reorder according to refno}
+\NormalTok{area.spdf <-}\StringTok{ }\NormalTok{area.spdf[ }\KeywordTok{order}\NormalTok{(area.spdf$refno),]}
+\end{Highlighting}
+\end{Shaded}
+
+We now create the adjacency matrices. Here, we must add the joins we
+mentioned previously.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nb.districts <-}\StringTok{ }\KeywordTok{poly2nb}\NormalTok{(area.spdf)}
+
+\NormalTok{## Join islands to the mainland}
+\NormalTok{for (i in }\DecValTok{1}\NormalTok{:}\KeywordTok{nrow}\NormalTok{(joins.to.add)) \{}
+    \NormalTok{a <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(const.lookup$refno.num[}\KeywordTok{which}\NormalTok{(const.lookup$refno==joins.to.add[i,}\DecValTok{1}\NormalTok{])])}
+    \NormalTok{b <-}\StringTok{ }\KeywordTok{as.integer}\NormalTok{(const.lookup$refno.num[}\KeywordTok{which}\NormalTok{(const.lookup$refno==joins.to.add[i,}\DecValTok{2}\NormalTok{])])}
+    \NormalTok{nb.districts[[a]] <-}\StringTok{ }\KeywordTok{c}\NormalTok{(nb.districts[[a]],b)}
+    \NormalTok{nb.districts[[a]] <-nb.districts[[a]][nb.districts[[a]]!=}\DecValTok{0}\NormalTok{]}
+    \NormalTok{nb.districts[[b]] <-}\StringTok{ }\KeywordTok{c}\NormalTok{(nb.districts[[b]],a)}
+    \NormalTok{nb.districts[[b]] <-nb.districts[[b]][nb.districts[[b]]!=}\DecValTok{0}\NormalTok{]}
+\NormalTok{\}}
+
+\NormalTok{nb <-}\StringTok{ }\KeywordTok{unlist}\NormalTok{(nb.districts)}
+\NormalTok{weight <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{times=}\KeywordTok{length}\NormalTok{(nb)) }
+\NormalTok{num <-}\StringTok{ }\KeywordTok{card}\NormalTok{(nb.districts)}
+
+\NormalTok{spdata <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\StringTok{"nb"}\NormalTok{, }\StringTok{"weight"}\NormalTok{, }\StringTok{"num"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Constituency-level
+information}\label{constituency-level-information}
+
+We now recode information pertaining to the constituency level. In some
+instances, this involves mere renaming:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{### Some renaming}
+\NormalTok{for (i in }\KeywordTok{c}\NormalTok{(}\StringTok{"private"}\NormalTok{,}\StringTok{"female"}\NormalTok{,}\StringTok{"married"}\NormalTok{,}\StringTok{"owns"}\NormalTok{,}\StringTok{"education"}\NormalTok{,}\StringTok{"socgrd"}\NormalTok{,}\StringTok{"age"}\NormalTok{)) \{}
+    \KeywordTok{names}\NormalTok{(aux)[}\KeywordTok{names}\NormalTok{(aux) ==}\StringTok{ }\NormalTok{i] <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(i,}\StringTok{"SL"}\NormalTok{)}
+\NormalTok{\}}
+
+\CommentTok{# transform lagged vote shares for 3 main parties}
+\NormalTok{aux$lab10[}\KeywordTok{is.na}\NormalTok{(aux$lab10)] <-}\StringTok{ }\DecValTok{1}
+\NormalTok{aux$con10[}\KeywordTok{is.na}\NormalTok{(aux$con10)] <-}\StringTok{ }\DecValTok{1}
+\NormalTok{aux$ld10[}\KeywordTok{is.na}\NormalTok{(aux$ld10)] <-}\StringTok{ }\DecValTok{1}
+\NormalTok{aux$lab10logit <-}\StringTok{ }\NormalTok{car:::}\KeywordTok{logit}\NormalTok{(aux$lab10,}\DataTypeTok{percents =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{aux$con10logit <-}\StringTok{ }\NormalTok{car:::}\KeywordTok{logit}\NormalTok{(aux$con10,}\DataTypeTok{percents =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{aux$ld10logit <-}\StringTok{ }\NormalTok{car:::}\KeywordTok{logit}\NormalTok{(aux$ld10,}\DataTypeTok{percents =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+In other cases, there is more heavy lifting to do. Here, we construct
+constituency-level aggregates for age and education from our census
+weights.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{education <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(psw$weight,}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{refno=}\NormalTok{psw$parliamentary.constituency}\FloatTok{.2010}\NormalTok{,}\DataTypeTok{education=}\NormalTok{psw$education),}
+    \NormalTok{sum,}\DataTypeTok{na.rm=}\NormalTok{T)}
+
+\NormalTok{education <-}\StringTok{ }\KeywordTok{ddply}\NormalTok{(education,.(refno),function(df)\{}
+    \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{educlevel4plus =} \KeywordTok{sum}\NormalTok{(df[df$education %in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Level 4/5"}\NormalTok{),}\StringTok{"x"}\NormalTok{],}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+    \DataTypeTok{educnoqual =} \KeywordTok{sum}\NormalTok{(df[df$education %in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"No qualifications"}\NormalTok{),}\StringTok{"x"}\NormalTok{],}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
+\NormalTok{\})}
+
+\NormalTok{aux <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(aux, education, }\DataTypeTok{by =} \StringTok{"refno"}\NormalTok{, }\DataTypeTok{all.x=}\OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{ageGroup <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(psw$weight,}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{refno=}\NormalTok{psw$parliamentary.constituency}\FloatTok{.2010}\NormalTok{,}\DataTypeTok{ageGroup=}\NormalTok{psw$age0),}
+    \NormalTok{sum,}\DataTypeTok{na.rm=}\NormalTok{T)}
+\NormalTok{ageGroup <-}\StringTok{ }\KeywordTok{ddply}\NormalTok{(ageGroup,.(refno),function(df)\{}
+    \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{age16to24 =} \KeywordTok{sum}\NormalTok{(df[df$ageGroup %in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"16-19"}\NormalTok{,}\StringTok{"20-24"}\NormalTok{),}\StringTok{"x"}\NormalTok{],}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+               \DataTypeTok{age65plus =} \KeywordTok{sum}\NormalTok{(df[df$ageGroup %in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"65-74"}\NormalTok{,}\StringTok{"75+"}\NormalTok{),}\StringTok{"x"}\NormalTok{],}\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{))}
+\NormalTok{\})}
+
+\NormalTok{aux <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(aux, ageGroup, }\DataTypeTok{by =} \StringTok{"refno"}\NormalTok{, }\DataTypeTok{all.x=}\OtherTok{TRUE}\NormalTok{)}
+
+\KeywordTok{rm}\NormalTok{(education,ageGroup)}
+\end{Highlighting}
+\end{Shaded}
+
+For housekeeping purposes, we'll merge this auxiliary information with
+the BES data-frame, making sure only to include the relevant
+constituencies. Note how we scale the variables so that they are
+approximately normally distributed. Scaling variables is often a
+necessary step in MCMC sampling so as to improve sampling speed and
+avoid over/under-run errors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aux <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(aux,aux$refno %in%}\StringTok{ }\KeywordTok{unique}\NormalTok{(const.lookup$refno))}
+\NormalTok{aux <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(aux,const.lookup,}\DataTypeTok{all.x=}\NormalTok{T,}\DataTypeTok{all.y=}\NormalTok{F)}
+\NormalTok{## Order aux seat correctly for later use}
+\NormalTok{aux <-}\StringTok{ }\NormalTok{aux[}\KeywordTok{order}\NormalTok{(aux$refno.num),]}
+\NormalTok{## Scale variables}
+\NormalTok{vars.to.scale <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"con10"}\NormalTok{,}\StringTok{"lab10"}\NormalTok{,}\StringTok{"ld10"}\NormalTok{,}
+    \StringTok{"log.earn"}\NormalTok{,}\StringTok{"nonwhite"}\NormalTok{,}\StringTok{"relig.christian"}\NormalTok{,}
+    \StringTok{"relig.refused"}\NormalTok{,}\StringTok{"relig.none"}\NormalTok{,}\StringTok{"relig.other"}\NormalTok{,}
+    \StringTok{"ageSL"}\NormalTok{,}\StringTok{"privateSL"}\NormalTok{,}\StringTok{"ownsSL"}\NormalTok{,}\StringTok{"femaleSL"}\NormalTok{,}
+    \StringTok{"marriedSL"}\NormalTok{,}\StringTok{"educationSL"}\NormalTok{,}\StringTok{"socgrdSL"}\NormalTok{,}
+    \StringTok{"log.density"}\NormalTok{,}\StringTok{"lab10logit"}\NormalTok{,}\StringTok{"con10logit"}\NormalTok{,}\StringTok{"ld10logit"}\NormalTok{,}
+    \StringTok{"educlevel4plus"}\NormalTok{,}\StringTok{"educnoqual"}\NormalTok{,}
+    \StringTok{"age16to24"}\NormalTok{,}\StringTok{"age65plus"}\NormalTok{)}
+
+\NormalTok{for (v in vars.to.scale) \{}
+    \NormalTok{aux[,v] <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{scale}\NormalTok{(aux[,v]))}
+\NormalTok{\}}
+\NormalTok{besdat <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(besdat, aux, }
+    \DataTypeTok{by.x =} \StringTok{"refno"}\NormalTok{, }\DataTypeTok{by.y =} \StringTok{"refno"}\NormalTok{,}
+    \DataTypeTok{all.x =} \NormalTok{T,}
+    \DataTypeTok{suffixes =} \KeywordTok{c}\NormalTok{(}\StringTok{".x"}\NormalTok{,}\StringTok{""}\NormalTok{))}
+
+\NormalTok{constindex <-}\StringTok{ }\NormalTok{besdat$constindex}
+\NormalTok{besdat$region.num <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(besdat$gor)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{The model}\label{the-model}
+
+Having recoded much of our data, we can now turn to the WinBUGS model.
+This model loops over the individual observations, pulling into the
+constituency-level effects, which are modelled respectively as a
+function of constituency-level covariates and a series of spatially
+correlated random effects. Here, we describe the model as an R language
+function, which is then written out to a file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model <-}\StringTok{ }\NormalTok{function() \{}
+    \NormalTok{for (i in }\DecValTok{1}\NormalTok{:nObs) \{}
+        \NormalTok{y[i] ~}\StringTok{ }\KeywordTok{dbern}\NormalTok{(p[i])}
+
+        \KeywordTok{logit}\NormalTok{(p[i]) <-}\StringTok{ }\NormalTok{alpha +}\StringTok{ }
+\StringTok{            }\NormalTok{gamma[i] +}\StringTok{ }
+\StringTok{            }\NormalTok{beta[constindex[i]] +}\StringTok{ }
+\StringTok{            }\NormalTok{v[constindex[i]]}
+
+        \NormalTok{gamma[i] <-}\StringTok{ }\NormalTok{gamma.female*female[i] +}\StringTok{ }\NormalTok{gamma.rent*rent[i] +}\StringTok{ }
+\StringTok{                    }\NormalTok{gamma.notMarried*notMarried[i] +}
+\StringTok{                    }\NormalTok{gamma.private*private[i] +}\StringTok{ }
+\StringTok{                    }\NormalTok{gamma.ageGroup[ageGroup[i]] +}\StringTok{ }
+\StringTok{                    }\NormalTok{gamma.qualifications[qualifications[i]]}
+    \NormalTok{\}}
+
+    \NormalTok{gamma.female ~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, .}\DecValTok{0001}\NormalTok{)}
+    \NormalTok{gamma.rent ~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, .}\DecValTok{0001}\NormalTok{)}
+    \NormalTok{gamma.notMarried ~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, .}\DecValTok{0001}\NormalTok{)}
+    \NormalTok{gamma.private ~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, .}\DecValTok{0001}\NormalTok{)}
+
+    \NormalTok{for(k in }\DecValTok{1}\NormalTok{:nAgeGroups)\{}
+       \NormalTok{gamma.ageGroup[k] ~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, tau.ageGroup)}
+      \NormalTok{\}}
+    \NormalTok{for(k in }\DecValTok{1}\NormalTok{:nQualifications)\{}
+       \NormalTok{gamma.qualifications[k] ~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, tau.qualifications)}
+      \NormalTok{\}}
+      
+
+    \NormalTok{tau.ageGroup  <-}\StringTok{ }\KeywordTok{pow}\NormalTok{(sigma.ageGroup, -}\DecValTok{2}\NormalTok{)}
+    \NormalTok{sigma.ageGroup ~}\StringTok{ }\KeywordTok{dunif}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+    \NormalTok{tau.qualifications  <-}\StringTok{ }\KeywordTok{pow}\NormalTok{(sigma.qualifications, -}\DecValTok{2}\NormalTok{)}
+    \NormalTok{sigma.qualifications ~}\StringTok{ }\KeywordTok{dunif}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+
+    \NormalTok{for (j in }\DecValTok{1}\NormalTok{:nConst) \{}
+        \NormalTok{beta[j] <-}\StringTok{ }\NormalTok{beta.density *}\StringTok{ }\NormalTok{density[j]  +}\StringTok{ }
+\StringTok{                    }\NormalTok{beta.nonwhite *}\StringTok{ }\NormalTok{nonwhite[j]  +}
+\StringTok{                    }\NormalTok{beta.earnings *}\StringTok{ }\NormalTok{earnings[j] +}\StringTok{ }
+\StringTok{                    }\NormalTok{beta.religchristian *}\StringTok{ }\NormalTok{relig.christian[j] +}
+\StringTok{                    }\NormalTok{beta.religother *}\StringTok{ }\NormalTok{relig.other[j] +}
+\StringTok{                    }\NormalTok{beta.religrefuse *}\StringTok{ }\NormalTok{relig.refuse[j] +}
+\StringTok{                    }\NormalTok{beta.femaleSL *}\StringTok{ }\NormalTok{femaleSL[j] +}
+\StringTok{                    }\NormalTok{beta.marriedSL *}\StringTok{ }\NormalTok{marriedSL[j] +}
+\StringTok{                    }\NormalTok{beta.privateSL *}\StringTok{ }\NormalTok{privateSL[j] +}
+\StringTok{                    }\NormalTok{beta.ownsSL *}\StringTok{ }\NormalTok{ownsSL[j] +}
+\StringTok{                    }\NormalTok{beta.socgrdSL *}\StringTok{ }\NormalTok{socgrdSL[j] +}
+\StringTok{                    }\NormalTok{beta.age16to24 *}\StringTok{ }\NormalTok{age16to24[j] +}\StringTok{ }\NormalTok{beta.age65plus *}\StringTok{ }\NormalTok{age65plus[j] +}\StringTok{                     }
+\StringTok{                    }\NormalTok{beta.educnoqual *}\StringTok{ }\NormalTok{educnoqual[j] +}\StringTok{ }
+\StringTok{                    }\NormalTok{beta.educlevel4plus *}\StringTok{ }\NormalTok{educlevel4plus[j] +}
+\StringTok{                    }\NormalTok{beta.con10 *}\StringTok{ }\NormalTok{con10[j] +}\StringTok{ }
+\StringTok{                    }\NormalTok{beta.lab10 *}\StringTok{ }\NormalTok{lab10[j] +}\StringTok{ }
+\StringTok{                    }\NormalTok{beta.ld10 *}\StringTok{ }\NormalTok{ld10[j] +}
+\StringTok{                    }\NormalTok{beta.region[region[j]] +}\StringTok{ }
+\StringTok{                    }\NormalTok{u[j]}
+        \NormalTok{u[j] ~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, tauu)}
+    \NormalTok{\}}
+
+    \NormalTok{for(k in }\DecValTok{1}\NormalTok{:nRegion)\{}
+        \NormalTok{beta.region[k] ~}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, tau.region)}
+    \NormalTok{\}}
+
+    \NormalTok{v[}\DecValTok{1}\NormalTok{:nConst] ~}\StringTok{ }\KeywordTok{car.normal}\NormalTok{(nb[], weight[], num[], tauv)}
+    \NormalTok{alpha ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.density ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.nonwhite ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.earnings ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.religchristian ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.religother ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.religrefuse ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.femaleSL ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.marriedSL ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.privateSL  ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.ownsSL  ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.socgrdSL ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.age16to24 ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.age65plus ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.educnoqual ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.educlevel4plus ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.con10 ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.lab10 ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+    \NormalTok{beta.ld10 ~}\StringTok{ }\KeywordTok{dflat}\NormalTok{()}
+
+    \NormalTok{tau.region <-}\StringTok{ }\KeywordTok{pow}\NormalTok{(sigma.region,-}\DecValTok{2}\NormalTok{)}
+    \NormalTok{sigma.region ~}\StringTok{ }\KeywordTok{dunif}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+
+    \NormalTok{tauu <-}\StringTok{ }\KeywordTok{pow}\NormalTok{(sigmasquv*sigmamix, -}\DecValTok{1}\NormalTok{)}
+    \NormalTok{tauv <-}\StringTok{ }\KeywordTok{pow}\NormalTok{(sigmasquv*(}\DecValTok{1}\NormalTok{-sigmamix), -}\DecValTok{1}\NormalTok{)}
+    \NormalTok{sigmasquv <-}\StringTok{ }\KeywordTok{pow}\NormalTok{(sigmauv,}\DecValTok{2}\NormalTok{)}
+    \NormalTok{sigmauv ~}\StringTok{ }\KeywordTok{dunif}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+    \NormalTok{sigmamix ~}\StringTok{  }\KeywordTok{dbeta}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{\}}
+
+\KeywordTok{write.model}\NormalTok{(model, }\StringTok{"model.bug"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Unfortunately, passing data to WinBUGS can be quite tedious. The
+following chunk of code sets up the various variables, which are then
+passed by name in the string at the end of the code chunk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Prepare data for WinBugs}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(besdat$y)}
+\NormalTok{nObs <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{length}\NormalTok{(y))}
+\NormalTok{nConst <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{max}\NormalTok{(const.lookup$refno.num)))}
+\NormalTok{constindex <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(constindex)}
+
+\NormalTok{female <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.numeric}\NormalTok{(besdat$gender ==}\StringTok{ "Female"}\NormalTok{))}
+\NormalTok{notMarried <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(besdat$maritalStatus ==}\StringTok{ "Single (never married), separated, divorced or widowed"}\NormalTok{)}
+\NormalTok{rent <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(besdat$housing ==}\StringTok{ "Rents"}\NormalTok{)}
+\NormalTok{private <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(besdat$privateSector ==}\StringTok{ "Private"}\NormalTok{)}
+
+\NormalTok{nAgeGroups <-}\StringTok{ }\KeywordTok{length}\NormalTok{(}\KeywordTok{unique}\NormalTok{(besdat$ageGroup))}
+\NormalTok{ageGroup <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(besdat$ageGroup)}
+\NormalTok{nsocialGrades <-}\StringTok{ }\KeywordTok{length}\NormalTok{(}\KeywordTok{unique}\NormalTok{(besdat$socialGrade))}
+\NormalTok{socialGrade <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(besdat$socialGrade)}
+\NormalTok{nQualifications <-}\StringTok{ }\KeywordTok{length}\NormalTok{(}\KeywordTok{unique}\NormalTok{(besdat$qualifications))}
+\NormalTok{qualifications <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(besdat$qualifications)}
+
+\NormalTok{## Constituency level stuff}
+\NormalTok{density <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$log.density)}
+\NormalTok{earnings <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$log.earn)}
+\NormalTok{nonwhite <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$nonwhite)}
+\NormalTok{region <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(aux$region)}
+\NormalTok{nRegion <-}\StringTok{ }\KeywordTok{length}\NormalTok{(}\KeywordTok{unique}\NormalTok{(region))}
+\NormalTok{relig.christian <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$relig.christian)}
+\NormalTok{relig.other <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$relig.other)}
+\NormalTok{relig.refuse <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$relig.refused)}
+\NormalTok{femaleSL <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$femaleSL)}
+\NormalTok{marriedSL <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$marriedSL)}
+\NormalTok{privateSL <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$privateSL)}
+\NormalTok{ownsSL <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$ownsSL)}
+\NormalTok{socgrdSL <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$socgrdSL)}
+
+\NormalTok{age16to24 <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$age16to24)}
+\NormalTok{age65plus <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$age65plus)}
+\NormalTok{educnoqual <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$educnoqual)}
+\NormalTok{educlevel4plus <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$educlevel4plus)}
+
+\NormalTok{lab10logit <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$lab10logit)}
+\NormalTok{con10logit <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$con10logit)}
+\NormalTok{ld10logit <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(aux$ld10logit)}
+\NormalTok{lab10 <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{as.numeric}\NormalTok{(aux$lab10logit))}
+\NormalTok{con10 <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{as.numeric}\NormalTok{(aux$con10logit))}
+\NormalTok{ld10 <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{as.numeric}\NormalTok{(aux$ld10logit))}
+
+
+\NormalTok{bugsdata <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\StringTok{"nObs"}\NormalTok{,}\StringTok{"female"}\NormalTok{,}\StringTok{"y"}\NormalTok{,}\StringTok{"rent"}\NormalTok{,}\StringTok{"notMarried"}\NormalTok{,}\StringTok{"private"}\NormalTok{,}
+            \StringTok{"ageGroup"}\NormalTok{,}\StringTok{"nAgeGroups"}
+            \NormalTok{,}\StringTok{"nQualifications"}\NormalTok{,}\StringTok{"qualifications"}
+            \NormalTok{,}\StringTok{"nConst"}
+            \NormalTok{,}\StringTok{"density"}
+            \NormalTok{,}\StringTok{"nonwhite"}\NormalTok{,}\StringTok{"earnings"}
+            \NormalTok{,}\StringTok{"constindex"}
+            \NormalTok{,}\StringTok{"relig.christian"}\NormalTok{,}\StringTok{"relig.other"}\NormalTok{,}\StringTok{"relig.refuse"}
+            \NormalTok{,}\StringTok{"femaleSL"}\NormalTok{, }\StringTok{"marriedSL"}\NormalTok{, }\StringTok{"privateSL"}
+            \NormalTok{,}\StringTok{"ownsSL"}\NormalTok{, }\StringTok{"socgrdSL"}
+            \NormalTok{,}\StringTok{"age16to24"}\NormalTok{, }\StringTok{"age65plus"}
+            \NormalTok{,}\StringTok{"educnoqual"}\NormalTok{,}\StringTok{"educlevel4plus"}
+            \NormalTok{,}\StringTok{"region"}\NormalTok{,}\StringTok{"nRegion"}
+            \NormalTok{,}\StringTok{"con10"}\NormalTok{,}\StringTok{"lab10"}\NormalTok{,}\StringTok{"ld10"}
+        \NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+WinBUGS will occasionally throw a hissy fit if its own best guess at
+initial values causes improbable results. For this reason, it's best to
+pass WinBUGS an initialization function. Again, this can be unwieldy,
+hence the tongue-in-cheek name of the function, \texttt{tiny.inits}.
+We'll also use this opportunity to set a random seed to ensure
+reproducibility.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2511}\NormalTok{)}
+\NormalTok{tiny.inits <-}\StringTok{ }\NormalTok{function() \{}
+            \NormalTok{alpha <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.density <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.religrefuse <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.religother <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.religchristian <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.nonwhite <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.earnings <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.femaleSL  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.marriedSL  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.privateSL   <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.ownsSL   <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.socgrdSL  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.age16to24  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.age65plus  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{beta.educnoqual  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)            }
+            \NormalTok{beta.educlevel4plus  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)            }
+            \NormalTok{beta.con10  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)            }
+            \NormalTok{beta.lab10  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)            }
+            \NormalTok{beta.ld10  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)            }
+
+            \NormalTok{gamma.female <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{gamma.rent <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{gamma.notMarried <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{gamma.private <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{gamma.ageGroup <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(nAgeGroups,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{gamma.qualifications <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(nQualifications,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+            \NormalTok{u =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,nConst)}
+            \NormalTok{v =}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,nConst)}
+
+            \KeywordTok{return}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{alpha=}\NormalTok{alpha,}\DataTypeTok{beta.density=}\NormalTok{beta.density,}
+                        \DataTypeTok{beta.religrefuse=}\NormalTok{beta.religrefuse,}
+                        \DataTypeTok{beta.religother=}\NormalTok{beta.religother,}
+                        \DataTypeTok{beta.religchristian=}\NormalTok{beta.religchristian,}
+                        \DataTypeTok{beta.nonwhite=}\NormalTok{beta.nonwhite,}\DataTypeTok{beta.earnings=}\NormalTok{beta.earnings,}
+                        \DataTypeTok{beta.femaleSL=}\NormalTok{beta.femaleSL, }\DataTypeTok{beta.marriedSL=}\NormalTok{beta.marriedSL,}
+                        \DataTypeTok{beta.privateSL=}\NormalTok{beta.privateSL, }\DataTypeTok{beta.ownsSL=}\NormalTok{beta.ownsSL,}
+                        \DataTypeTok{beta.socgrdSL=}\NormalTok{beta.socgrdSL,}
+                        \DataTypeTok{beta.age16to24=}\NormalTok{beta.age16to24,}
+                        \DataTypeTok{beta.age65plus=}\NormalTok{beta.age65plus,}
+                        \DataTypeTok{beta.educnoqual=}\NormalTok{beta.educnoqual,}
+                        \DataTypeTok{beta.educlevel4plus=}\NormalTok{beta.educlevel4plus,}
+                        \DataTypeTok{beta.con10=}\NormalTok{beta.con10,}
+                        \DataTypeTok{beta.lab10=}\NormalTok{beta.lab10,}
+                        \DataTypeTok{beta.ld10=}\NormalTok{beta.ld10,}
+                        \DataTypeTok{gamma.female=}\NormalTok{gamma.female,}
+                        \DataTypeTok{gamma.rent=}\NormalTok{gamma.rent,}
+                        \DataTypeTok{gamma.notMarried=} \NormalTok{gamma.notMarried,}
+                        \DataTypeTok{gamma.private=}\NormalTok{gamma.private,}
+                        \DataTypeTok{gamma.ageGroup=}\NormalTok{gamma.ageGroup}
+                        \NormalTok{,}\DataTypeTok{gamma.qualifications=}\NormalTok{gamma.qualifications}
+                        \NormalTok{,}\DataTypeTok{u=}\NormalTok{u,}\DataTypeTok{v=}\NormalTok{v))}
+        \NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Estimation}\label{estimation}
+
+We've now re-coded all our data, made it play nicely together, and
+specified our model. There are two steps left -- estimation of the
+model, and post-stratification. Estimation can be quite computationally
+intensive -- and post-stratification quite memory intensive. For these
+reasons, we're going to set the number of MCMC samples to a small
+number.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{### You could use these}
+\NormalTok{my.iter <-}\StringTok{ }\DecValTok{50000}
+\NormalTok{my.burnin <-}\StringTok{ }\DecValTok{10000}
+\NormalTok{my.thin <-}\StringTok{ }\DecValTok{100}
+
+\NormalTok{### But we'll use these}
+\NormalTok{my.iter <-}\StringTok{ }\DecValTok{200}
+\NormalTok{my.burnin <-}\StringTok{ }\DecValTok{100}
+\NormalTok{my.thin <-}\StringTok{ }\DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+Here comes the estimation! You will need to change the Bugs directory to
+match its location on your system.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my.bugs.dir <-}\StringTok{ "/home/chris/.wine/drive_c/Program Files (x86)/WinBUGS14"}
+
+\NormalTok{model.sim <-}\StringTok{ }\KeywordTok{bugs}\NormalTok{(}\DataTypeTok{data=}\KeywordTok{c}\NormalTok{(bugsdata, spdata), }
+        \DataTypeTok{inits =} \NormalTok{tiny.inits,}
+     \DataTypeTok{model.file=}\StringTok{"model.bug"}\NormalTok{,}
+      \DataTypeTok{parameters.to.save=}\KeywordTok{c}\NormalTok{(}\StringTok{"alpha"}\NormalTok{,}
+        \StringTok{"gamma.female"}\NormalTok{,}
+        \StringTok{"gamma.rent"}\NormalTok{,}
+        \StringTok{"gamma.notMarried"}\NormalTok{,}
+        \StringTok{"gamma.private"}\NormalTok{,}
+        \StringTok{"gamma.ageGroup"}
+        \NormalTok{,}\StringTok{"gamma.qualifications"}
+        \NormalTok{,}\StringTok{"beta"}\NormalTok{,}\StringTok{"v"}
+        \NormalTok{,}\StringTok{"sigmauv"}\NormalTok{, }\StringTok{"sigmamix"}\NormalTok{, }\StringTok{"sigma.region"}
+        \NormalTok{,}\StringTok{"beta.density"}
+        \NormalTok{,}\StringTok{"beta.nonwhite"}\NormalTok{,}\StringTok{"beta.earnings"}
+        \NormalTok{,}\StringTok{"beta.religrefuse"}\NormalTok{,}\StringTok{"beta.religother"}\NormalTok{, }\StringTok{"beta.religchristian"}
+        \NormalTok{,}\StringTok{"beta.region"}
+        \NormalTok{,}\StringTok{"beta.femaleSL"}\NormalTok{,}\StringTok{"beta.marriedSL"}\NormalTok{,}\StringTok{"beta.privateSL"}\NormalTok{,}\StringTok{"beta.ownsSL"}\NormalTok{,}\StringTok{"beta.socgrdSL"}
+        \NormalTok{,}\StringTok{"beta.age16to24"}\NormalTok{,}\StringTok{"beta.age65plus"}\NormalTok{,}\StringTok{"beta.educnoqual"}\NormalTok{,}\StringTok{"beta.educlevel4plus"}
+        \NormalTok{,}\StringTok{"beta.con10"}\NormalTok{,}\StringTok{"beta.lab10"}\NormalTok{,}\StringTok{"beta.ld10"}
+        \NormalTok{), }
+      \DataTypeTok{n.chains=}\DecValTok{3}\NormalTok{,}
+      \DataTypeTok{n.iter=}\NormalTok{my.iter, }
+      \DataTypeTok{n.burnin=}\NormalTok{my.burnin, }
+      \DataTypeTok{n.thin=}\NormalTok{my.thin, }
+      \DataTypeTok{debug=}\OtherTok{FALSE}\NormalTok{,}
+      \DataTypeTok{bugs.directory=}\NormalTok{my.bugs.dir) }
+\end{Highlighting}
+\end{Shaded}
+
+We probably want to check whether these Markov Chains have converged:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(model.sim$summary[,}\StringTok{"Rhat"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+Min. 1st Qu. Median Mean 3rd Qu. Max. 0.997 1.030 1.070 1.140 1.120
+9.430
+
+\section{Post-stratification}\label{post-stratification}
+
+Assuming that convergence has been achieved, we now need to
+post-stratify the results. This will involve loading in the
+post-stratification weights, and doing some book-keeping on the outcome
+of the WinBUGS model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{load}\NormalTok{(}\StringTok{"./canonical_weights_2001SARS_2011margins_Robj.RData"}\NormalTok{)}
+
+\NormalTok{PSW <-}\StringTok{ }\KeywordTok{as.data.frame.table}\NormalTok{(psw, }\DataTypeTok{rownames =} \OtherTok{NULL}\NormalTok{, }\DataTypeTok{responseName =} \StringTok{"N"}\NormalTok{)}
+\KeywordTok{names}\NormalTok{(PSW) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"refno"}\NormalTok{, }\StringTok{"gender"}\NormalTok{, }\StringTok{"ageGroup"}\NormalTok{, }\StringTok{"qualifications"}\NormalTok{,}
+                \StringTok{"maritalStatus"}\NormalTok{, }\StringTok{"housing"}\NormalTok{, }\StringTok{"socgrd"}\NormalTok{, }\StringTok{"privateSector"}\NormalTok{, }\StringTok{"N"}\NormalTok{)}
+
+\NormalTok{### Social grade not used here}
+\NormalTok{PSW$socgrd <-}\StringTok{ }\OtherTok{NULL}
+\CommentTok{# assign re-formatted PSW as census data}
+\NormalTok{census <-}\StringTok{ }\NormalTok{PSW}
+\KeywordTok{rm}\NormalTok{(PSW, psw)}
+
+\NormalTok{## create census model matrix}
+\NormalTok{census.mat <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(~}\StringTok{ }\DecValTok{1} \NormalTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(gender==}\StringTok{"Female"}\NormalTok{) +}\StringTok{ }\KeywordTok{I}\NormalTok{(housing==}\StringTok{"Rents"}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\KeywordTok{I}\NormalTok{(maritalStatus==}\StringTok{"Single (never married), separated, divorced or widowed"}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\KeywordTok{I}\NormalTok{(privateSector==}\StringTok{"Private"}\NormalTok{) +}
+\StringTok{        }\NormalTok{ageGroup +}\StringTok{ }\NormalTok{qualifications,}
+        \DataTypeTok{contrasts.arg =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{ageGroup =} \KeywordTok{contrasts}\NormalTok{(census$ageGroup, }\DataTypeTok{contrasts=}\NormalTok{F),}
+            \DataTypeTok{qualifications =} \KeywordTok{contrasts}\NormalTok{(census$qualifications, }\DataTypeTok{contrasts=}\NormalTok{F)}
+    \NormalTok{),}
+    \DataTypeTok{data =} \NormalTok{census)}
+
+\NormalTok{## Constituency effects}
+\NormalTok{constituency.component <-}\StringTok{ }\NormalTok{model.sim$mean$beta +}\StringTok{ }\NormalTok{model.sim$mean$v}
+\NormalTok{constituency.component <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{constout =} \NormalTok{constituency.component, }
+    \DataTypeTok{refno.num =} \DecValTok{1}\NormalTok{:nConst)}
+\NormalTok{constituency.component <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(constituency.component,const.lookup)}
+\NormalTok{constituency.component$refno.num <-}\StringTok{ }\OtherTok{NULL}
+
+\NormalTok{## Rearrange coefs}
+\NormalTok{the.coefs <-}\StringTok{ }\KeywordTok{c}\NormalTok{(model.sim$mean$alpha,}
+        \NormalTok{model.sim$mean$gamma.female,}
+        \NormalTok{model.sim$mean$gamma.rent, }
+        \NormalTok{model.sim$mean$gamma.notMarried, }
+        \NormalTok{model.sim$mean$gamma.private,}
+        \NormalTok{model.sim$mean$gamma.ageGroup}
+        \NormalTok{,model.sim$mean$gamma.qualifications}
+        \NormalTok{)}
+
+    
+\NormalTok{### Get product}
+
+\NormalTok{census$out <-}\StringTok{  }\KeywordTok{rowSums}\NormalTok{(census.mat %*%}\StringTok{ }\NormalTok{the.coefs)}
+
+\NormalTok{### Add the constituency effects}
+\NormalTok{census <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(census,constituency.component,}
+        \DataTypeTok{by =} \StringTok{"refno"}\NormalTok{,}
+        \DataTypeTok{all=}\NormalTok{T)}
+\NormalTok{census$cell.pred <-}\StringTok{ }\KeywordTok{inv.logit}\NormalTok{(census$out +}\StringTok{ }\NormalTok{census$constout)}
+
+\NormalTok{## Aggregate to constituency yhat}
+\NormalTok{meanpreds <-}\StringTok{ }\NormalTok{census$cell.pred *}\StringTok{ }\NormalTok{census$N}
+\NormalTok{meanpreds <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(meanpreds,}\KeywordTok{list}\NormalTok{(}\DataTypeTok{refno=}\NormalTok{census$refno),sum,}\DataTypeTok{na.rm=}\NormalTok{T)}
+\KeywordTok{names}\NormalTok{(meanpreds)[}\DecValTok{2}\NormalTok{] <-}\StringTok{ "yhat"}
+
+\NormalTok{meanpreds$yhat <-}\StringTok{ }\NormalTok{meanpreds$yhat*}\DecValTok{100}
+
+\NormalTok{meanpreds <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(meanpreds, lookup, }\DataTypeTok{by =} \StringTok{"refno"}\NormalTok{, }
+    \DataTypeTok{all =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We should now have our results in \texttt{meanpreds}, which can be
+saved, or merged with other data, or enter into another model,
+or\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{meanpreds[}\DecValTok{1}\NormalTok{:}\DecValTok{3}\NormalTok{,}\KeywordTok{c}\NormalTok{(}\StringTok{"refno"}\NormalTok{,}\StringTok{"YouGovName"}\NormalTok{,}\StringTok{"yhat"}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+refno YouGovName yhat 1 1 Aberavon 52.90 2 10 Alyn and Deeside 61.65 3
+100 Bristol North West 44.23
+
+\end{document}
