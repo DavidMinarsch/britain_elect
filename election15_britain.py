@@ -3,7 +3,6 @@ import pandas as pd
 import scipy as sp
 import matplotlib.pyplot as plt
 import seaborn as sns
-# import pystan
 from collections import OrderedDict
 import pickle
 from pystan import StanModel
@@ -15,7 +14,7 @@ sns.set_context('notebook')
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-SAVE = False
+SAVE = True
 
 save_model_1 = SAVE
 save_fit_1 = SAVE
@@ -50,7 +49,7 @@ party_categories = {'Con': 1, 'Grn': 2, 'LD': 3, 'Lab': 4, 'Other': 5, 'PC': 6, 
 
 """Step 1: gather national opinion polls (they need to include respondent information down to the level of
 disaggregation the analysis is targetting) """
-polls = pd.read_csv(script_dir + '/2015_UK_GE_results_BES/bes_poll_data.csv')
+polls = pd.read_csv(script_dir + '/2015_ge_results_bes/bes_poll_data.csv')
 # drop SNP voters in regions outside Scottland:
 polls = polls[polls['vote'] != 'SNP']
 polls['main'] = np.where(polls['vote'] == 'Con', 1, np.where(polls['vote'] == 'Lab', 1, 0))
@@ -74,7 +73,7 @@ polls_numeric['vote'] = polls_numeric['vote'].apply(lambda x: party_categories[x
 """Step 2: create a separate dataset of region-level predictors """
 # load in 2010 election data as a region level predictor
 # (http://www.electoralcommission.org.uk/our-work/our-research/electoral-data)
-ge_10 = pd.read_csv(script_dir + '/2010_UK_GE_results/GE2010.csv')
+ge_10 = pd.read_csv(script_dir + '/2010_ge_results/GE2010.csv')
 ge_10 = ge_10[['Press Association Reference', 'Constituency Name', 'Region', 'Electorate', 'Votes', 'Con', 'Lab', 'LD',
                'Grn', 'UKIP', 'SNP', 'PC']]
 ge_10['Other'] = ge_10['Votes']\
@@ -111,7 +110,7 @@ ge_10_region_share = ge_10_region_share.rename(columns=party_categories)
 """ Extra Step: Validation Data"""
 # load in 2015 election data as a validation check
 # (http://www.electoralcommission.org.uk/our-work/our-research/electoral-data)
-ge_15 = pd.read_csv(script_dir + '/2015_UK_GE_results/RESULTS_FOR_ANALYSIS.csv')
+ge_15 = pd.read_csv(script_dir + '/2015_ge_results/RESULTS_FOR_ANALYSIS.csv')
 ge_15 = ge_15[['Press Association Reference', 'Constituency Name', 'Region', 'Electorate', 'Votes', 'Con', 'Lab', 'LD',
                'Grn', 'UKIP', 'SNP', 'PC']]
 ge_15['Votes'] = ge_15['Votes'].str.replace(',', '').astype(float)
