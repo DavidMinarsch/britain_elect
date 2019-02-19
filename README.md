@@ -34,7 +34,7 @@ CD into folder to activate the virtual environment and run:
 $ pip install requirements.txt
 ```
 
-## Or run from Command Line
+## Run from Command Line
 ```
 $ python election15_britain.py
 ```
