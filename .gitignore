@@ -1,8 +1,3 @@
 __pycache__/
-old/
-pkl_objects/
-britain_elect/
-mid_year_population_estimates/
-code_by_c_hanretty/
-2011_census/2011_Census_Microdata_Individual_Safeguarded_Sample_(Regional)_England_and_Wales/
-.DS_Store
+pkl_objects/*
+*.DS_Store
