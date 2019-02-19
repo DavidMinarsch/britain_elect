@@ -34,17 +34,6 @@ CD into folder to activate the virtual environment and run:
 $ pip install requirements.txt
 ```
 
-## Run Notebook
-Install a new kernel:
-```
-$ ipython kernel install --user --name=stan_elect
-```
-Start the notebook server:
-```
-$ jupyter notebook
-```
-Run the notebook from the browser!
-
 ## Or run from Command Line
 ```
 $ python election15_britain.py
